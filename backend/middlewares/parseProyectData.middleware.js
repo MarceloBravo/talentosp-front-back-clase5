@@ -15,26 +15,10 @@ const parseProyectData = (req, res, next) => {
 
     // Formateando datos de las tareas
     tasks.forEach((t, index)=> {
-        if (t.title) {
-            req.body.tasks[index].title = `${t.title}`;
-        }
-        if (t.description) {
-            req.body.tasks[index].description = `${t.description}`
-        }
-        if (t.status) {
-            req.body.tasks[index].status = `${t.status}`;
-        }
-        if (t.priority) {
-            req.body.tasks[index].priority = `${t.priority}`;
-        }
-        if (t.assignee_id) {
-            req.body.tasks[index].assignee_id = parseInt(t.assignee_id);
-        }
-        if (t.due_date) {
-            req.body.tasks[index].due_date = new Date(t.due_date);
-        }
+        req = parseTaskData(req, t, index);
     });
 
     next();
 };
+
 module.exports = parseProyectData;

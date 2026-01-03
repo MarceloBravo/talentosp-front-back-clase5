@@ -23,6 +23,7 @@ app.use('/uploads', express.static('uploads'));
 require('./routes/login.routes')(app);
 require('./routes/users.routes')(app);
 require('./routes/proyects.routes')(app);
+require('./routes/tasks.routes')(app);
 
 // Manejador de errores global
 const errorHandler = require('./middlewares/errorHandler.middleware');
