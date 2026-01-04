@@ -50,6 +50,12 @@ class UsersModel {
         return null;
     }
 
+    async updateUserProfileImage(id, fileUrl) {
+        const query = 'UPDATE users SET profile_image_url = $1 WHERE id = $2 RETURNING *';
+        const result = await cnn.query(query, [fileUrl, id]);
+        return result.rows.length > 0 ? result.rows[0] : null;
+    }
+
     async deleteUser(id) {
         const result = await cnn.query('DELETE FROM users WHERE id = $1', [id]);
         return result.rowCount;

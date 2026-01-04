@@ -15,7 +15,7 @@ CREATE TABLE users (
     role user_role DEFAULT 'user',
     refresh_token TEXT,
     activo BOOLEAN DEFAULT true,
-    profile_image_url VARCHAR(255),
+    file_url VARCHAR(255), -- Ruta del archivo avatar
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

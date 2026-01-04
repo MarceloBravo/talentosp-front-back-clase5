@@ -28,7 +28,8 @@ class UserController{
     async createUser(req, res, next){
         try {
             const data = req.body;
-            const result = await this.service.create(data);
+            const file = req.file || null; // Archivo desde multer (memoryStorage) - single file
+            const result = await this.service.create(data, file);
             if(result){
                 return res.json({mensaje: 'Usuario creado exitosamente.',data: result});
             }else{
@@ -45,7 +46,8 @@ class UserController{
         try {
             const id = req.params.id;
             const data = req.body;
-            const result = await this.service.update(id, data);
+            const file = req.file || null; // Archivo desde multer (memoryStorage) - single file
+            const result = await this.service.update(id, data, file);
             if(result){
                 return res.json({mensaje: 'Usuario actualizado exitosamente.',data: result});
             }else{

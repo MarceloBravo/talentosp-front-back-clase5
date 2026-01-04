@@ -8,12 +8,14 @@ const parseTaskData = require("../middlewares/parseTaskData.middleware");
 const validaDatosTarea = require("../middlewares/validaDatosTarea.middleware");
 
 const upload = require('../middlewares/upload.js');
+const UploadFileService = require("../services/uploadFile.service.js");
 
 module.exports = (app) => {
     const taskModel = new TaskModel();
     const attachmentsModel = new AttachmentsModel();
     const attachmentsService = new AttachmentsService(attachmentsModel);
-    const taskService = new TaskService(taskModel, attachmentsService);
+    const uploadFileService = new UploadFileService(attachmentsService);
+    const taskService = new TaskService(taskModel, uploadFileService, attachmentsService);
     const taskController = new TasksController(taskService);
 
     app.get('/api/tasks', authenticateToken,  (req, res, next) => taskController.getAllTasks(req, res, next));

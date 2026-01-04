@@ -5,9 +5,11 @@ const validaDatosUsuario = require('../middlewares/validaDatosUsuario.middleware
 const authenticateToken = require('../middlewares/auth.middleware');
 const parseUserData = require('../middlewares/parseUserData.middleware');
 const upload = require('../middlewares/upload');
+const UploadFileService = require('../services/uploadFile.service');
 
 module.exports = (app) => {
-    const userService = new UsersService(new UsersModel());
+    const uploadFileService = new UploadFileService()
+    const userService = new UsersService(new UsersModel(), uploadFileService);
     const userController = new UserController(userService);
 
     app.get('/api/users', (req, res, next) => userController.getAllUsers(req, res, next));
