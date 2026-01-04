@@ -19,7 +19,7 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 2. Tabla de Proyectos
+-- 2. Tabla de Projects
 CREATE TABLE projects (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL, 
@@ -55,9 +55,9 @@ INSERT INTO users (nombre, email, password, role) VALUES
 ('Admin TaskFlow', 'admin@taskflow.ai', '$2b$10$qNFBadI7qUXNq.AphV3MDe2ClhApt/sUv0/9nrgwlcgh3imclDNp2', 'admin'), -- pwd = 123123
 ('Juan Desarrollador', 'juan@talentops.ai', '$2b$10$N5T/ZY3RbHSKmsHjMtA8HepxiSNztZFZK4dhv.zAACjmAUrP4x30O', 'user'); -- pwd = 123456
 
--- Insertar un Proyecto
+-- Insertar un Project
 INSERT INTO projects (name, description, owner_id) VALUES 
-('Despliegue TaskFlow', 'Proyecto final de integración Full-Stack', 1);
+('Despliegue TaskFlow', 'Project final de integración Full-Stack', 1);
 
 -- Insertar Tareas para el Dashboard
 INSERT INTO tasks (project_id, title, description, status, priority, assignee_id, due_date) VALUES 

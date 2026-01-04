@@ -127,8 +127,8 @@ class UploadFileService{
     async deleteAvatarFile(user){
         if (user) {
             try {
-                // Eliminar archivos físicos - puede ser file_url o profile_image_url
-                const fileUrl = user.profile_image_url || user.file_url;
+                // Eliminar archivos físicos - puede ser file_url o file_url
+                const fileUrl = user.file_url || user.file_url;
                 if(fileUrl) {
                     const fullPath = path.join(__dirname, '../', fileUrl);
                     await fs.unlink(fullPath);

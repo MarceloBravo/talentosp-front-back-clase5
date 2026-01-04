@@ -2,7 +2,7 @@ const pool = require('../db/connection');
 const fs = require('fs').promises;
 const path = require('path');
 
-class AttachmentsModel{
+class AttachmentsProjectModel{
 
     constructor(){}
 
@@ -80,4 +80,4 @@ class AttachmentsModel{
     }
 }
 
-module.exports = AttachmentsModel;
+module.exports = AttachmentsProjectModel;

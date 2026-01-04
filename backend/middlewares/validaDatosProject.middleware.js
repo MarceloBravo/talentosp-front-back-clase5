@@ -1,16 +1,18 @@
-function validaDatosProyecto(req, res, next) {
+function validaDatosProject(req, res, next) {
+    const contentType = req.headers["content-type"]
+    const project = contentType.includes("application/json") ? req.body.project : JSON.parse(req.body.project);
     const {
         name,
         description,
         owner_id
-    } = req.body.proyect;
+    } = project;
 
     
     if (!name || name.trim().length === 0 ){
-        return res.status(400).json({ status: 'error', message: 'El nombre del proyecto es obligatorio.' });
+        return res.status(400).json({ status: 'error', message: 'El nombre del project es obligatorio.' });
     }
     if (name.trim().length > 100) {
-        return res.status(400).json({ status: 'error', message: 'El nombre del proyecto debe tener como máximo 100 caracteres.' });
+        return res.status(400).json({ status: 'error', message: 'El nombre del project debe tener como máximo 100 caracteres.' });
     }
     if (!description || description.trim().length === 0 ){
         return res.status(400).json({ status: 'error', message: 'La descripción del proyecto es obligatoria.' });
@@ -21,4 +23,4 @@ function validaDatosProyecto(req, res, next) {
     
     next();
 }
-module.exports = validaDatosProyecto;
+module.exports = validaDatosProject;

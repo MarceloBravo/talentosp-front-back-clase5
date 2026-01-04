@@ -1,7 +1,8 @@
 const validaDatosTareaHelper = require("../helpers/validaDatosTareaHelper");
 
 function validaDatosTareas(req, res, next){
-    const tasks = req.body.tasks;
+    const contentType = req.headers["content-type"]
+    const tasks = contentType.includes("application/json") ? req.body.task : JSON.parse(req.body.tasks);
     
     if(!tasks){
         return res.status(400).json({

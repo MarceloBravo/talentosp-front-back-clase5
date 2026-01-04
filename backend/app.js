@@ -22,7 +22,7 @@ app.use('/uploads', express.static('uploads'));
 // Registro de rutas
 require('./routes/login.routes')(app);
 require('./routes/users.routes')(app);
-require('./routes/proyects.routes')(app);
+require('./routes/projects.routes')(app);
 require('./routes/tasks.routes')(app);
 
 // Manejador de errores global

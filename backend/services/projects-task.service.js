@@ -1,12 +1,12 @@
-class ProyectsTaskService{
+class ProjectsTaskService{
 
-    constructor(proyectService, taskService){
-        this.proyectService = proyectService;
+    constructor(projectService, taskService){
+        this.projectService = projectService;
         this.taskService = taskService;
     }
 
     async getById(id){
-        const project = await this.proyectService.getById(id);
+        const project = await this.projectService.getById(id);
         if(project.length > 0){
             const tasks = await this.taskService.getAllByProjectId(project[0].id);
             return {project, tasks: tasks.rows};
@@ -14,8 +14,8 @@ class ProyectsTaskService{
         return null;
     }
 
-    async create(proyectData, taskData){
-        const project = await this.proyectService.create(proyectData);
+    async create(projectData, taskData, files = null){
+        const project = await this.projectService.create(projectData, files);
         if(project){
             const newTaskPromises = taskData.map(async t => {
                 t.project_id = project.id;
@@ -28,8 +28,8 @@ class ProyectsTaskService{
         return null;
     }
 
-    async update(id, proyectData, taskData, idTasksDedeleted){
-        const project = await this.proyectService.update(id, proyectData);
+    async update(id, projectData, taskData, idTasksDedeleted = []){
+        const project = await this.projectService.update(id, projectData);
         if(project){
 
             // crear y actualizar
@@ -60,13 +60,14 @@ class ProyectsTaskService{
     }
 
     async delete(projectId){
-        const affectedRows = await this.proyectService.delete(projectId);
+        const affectedRows = await this.projectService.delete(projectId);
         if(affectedRows > 0){
-            return await this.taskService.deleteByProjectId(projectId);
+            await this.taskService.deleteByProjectId(projectId);
+            return affectedRows;
         }
         return 0;
     }
 
 }
 
-module.exports = ProyectsTaskService;
+module.exports = ProjectsTaskService;

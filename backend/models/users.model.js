@@ -7,7 +7,7 @@ class UsersModel {
     }
 
     async getUsersAll(params = []) {
-        let query = 'SELECT id, nombre, email, role, activo, created_at, profile_image_url FROM users';
+        let query = 'SELECT id, nombre, email, role, activo, created_at, file_url FROM users';
         if(params.length > 0){
             query += ' WHERE nombre ILIKE $1 OR email ILIKE $1';
         }
@@ -18,7 +18,7 @@ class UsersModel {
 
 
     async getUserById(id) {
-        const result = await cnn.query('SELECT id, nombre, email, role, activo, created_at, profile_image_url FROM users WHERE id = $1', [id]);
+        const result = await cnn.query('SELECT id, nombre, email, role, activo, created_at, file_url FROM users WHERE id = $1', [id]);
         if(result.rows.length > 0){
             return result.rows[0];
         }
@@ -51,7 +51,7 @@ class UsersModel {
     }
 
     async updateUserProfileImage(id, fileUrl) {
-        const query = 'UPDATE users SET profile_image_url = $1 WHERE id = $2 RETURNING *';
+        const query = 'UPDATE users SET file_url = $1 WHERE id = $2 RETURNING *';
         const result = await cnn.query(query, [fileUrl, id]);
         return result.rows.length > 0 ? result.rows[0] : null;
     }

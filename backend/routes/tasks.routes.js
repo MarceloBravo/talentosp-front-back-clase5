@@ -2,7 +2,8 @@ const TasksController = require("../controllers/tasks.controller");
 const TaskService = require("../services/tasks.service");
 const TaskModel = require("../models/task.model");
 const AttachmentsService = require("../services/attachments.service");
-const AttachmentsModel = require("../models/attachments.model");
+const AttachmentsTaskModel = require("../models/attachmentsTask.model.js");
+
 const authenticateToken = require("../middlewares/auth.middleware");
 const parseTaskData = require("../middlewares/parseTaskData.middleware");
 const validaDatosTarea = require("../middlewares/validaDatosTarea.middleware");
@@ -12,8 +13,8 @@ const UploadFileService = require("../services/uploadFile.service.js");
 
 module.exports = (app) => {
     const taskModel = new TaskModel();
-    const attachmentsModel = new AttachmentsModel();
-    const attachmentsService = new AttachmentsService(attachmentsModel);
+    const attachmentsTaskModel = new AttachmentsTaskModel();
+    const attachmentsService = new AttachmentsService(attachmentsTaskModel);
     const uploadFileService = new UploadFileService(attachmentsService);
     const taskService = new TaskService(taskModel, uploadFileService, attachmentsService);
     const taskController = new TasksController(taskService);

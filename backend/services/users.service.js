@@ -44,12 +44,12 @@ class UsersService{
         // Si hay archivo nuevo, eliminar el anterior primero
         if (file) {
             const currentUser = await this.getById(id);
-            if(currentUser && (currentUser.profile_image_url || currentUser.file_url)){
+            if(currentUser && (currentUser.file_url || currentUser.file_url)){
                 await this.uploadFileService.deleteAvatarFile(currentUser);
             }
             // Guardar el nuevo archivo
             const fileUrl = await this.uploadFileService.saveAvatarFile(file, id);
-            data.profile_image_url = fileUrl;
+            data.file_url = fileUrl;
         }
 
         const result = await this.model.updateUser(id, data);
@@ -66,7 +66,7 @@ class UsersService{
         const user = await this.getById(id);
         if(user){
             // Eliminar archivo de avatar si existe
-            if(user.profile_image_url || user.file_url){
+            if(user.file_url || user.file_url){
                 await this.uploadFileService.deleteAvatarFile(user);
             }
             const result = await this.model.deleteUser(id);
@@ -80,7 +80,7 @@ class UsersService{
         // Guardar archivo de avatar
         const fileUrl = await this.uploadFileService.saveAvatarFile(file, userId);
         
-        // Actualizar el campo profile_image_url en la base de datos
+        // Actualizar el campo file_url en la base de datos
         if(fileUrl){
             await this.model.updateUserProfileImage(userId, fileUrl);
         }
