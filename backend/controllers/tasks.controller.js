@@ -43,7 +43,8 @@ class TasksController{
     async createTask(req, res, next){
         try {
             const taskData = req.body;
-            const task = await this.service.create(taskData);
+            const files = req.files || null; // Archivos desde multer (memoryStorage)
+            const task = await this.service.create(taskData, files);
             res.json({data: task});
         }catch(error){
             console.log(error);
@@ -56,7 +57,8 @@ class TasksController{
         try {
             const {id} = req.params;
             const taskData = req.body;
-            const task = await this.service.update(id, taskData);
+            const files = req.files || null; // Archivos desde multer (memoryStorage)
+            const task = await this.service.update(id, taskData, files);
             res.json({data: task});
         }catch(error){
             console.log(error);

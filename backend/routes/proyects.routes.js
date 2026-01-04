@@ -9,6 +9,7 @@ const validaDatosProyecto = require('../middlewares/validaDatosProyecto.middlewa
 const validaDatosTareas = require('../middlewares/validaDatosTareas.middleware.js');
 const authenticateToken = require('../middlewares/auth.middleware.js');
 const parseProyectData = require('../middlewares/parseProyectData.middleware.js');
+
 const upload = require('../middlewares/upload.js');
 
 module.exports = (app) => {
@@ -21,7 +22,7 @@ module.exports = (app) => {
 
     app.get('/api/proyectos', (req, res, next) => proyectController.getAllProjects(req, res, next));
     app.get('/api/proyectos/:id', (req, res, next) => proyectController.getProjectById(req, res, next));
-    app.post('/api/proyectos', authenticateToken, upload.single('product_photo'), validaDatosProyecto, validaDatosTareas, parseProyectData, (req, res, next) => proyectController.createProject(req, res, next));
-    app.put('/api/proyectos/:id', authenticateToken, upload.single('product_photo'), validaDatosProyecto, validaDatosTareas, parseProyectData, (req, res, next) => proyectController.updateProject(req, res, next));
+    app.post('/api/proyectos', authenticateToken, validaDatosProyecto, validaDatosTareas, parseProyectData, upload.single('product_photo'), (req, res, next) => proyectController.createProject(req, res, next));
+    app.put('/api/proyectos/:id', authenticateToken, validaDatosProyecto, validaDatosTareas, parseProyectData, upload.single('product_photo'), (req, res, next) => proyectController.updateProject(req, res, next));
     app.delete('/api/proyectos/:id', authenticateToken, (req, res, next) => proyectController.deleteProject(req, res, next));
 }

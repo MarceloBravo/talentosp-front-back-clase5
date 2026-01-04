@@ -1,17 +1,12 @@
 const multer = require('multer');
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname)
-  }
-});
+// Usar memoryStorage para mantener archivos en memoria
+// Los archivos se guardarán en disco desde el servicio después de validar todo
+const storage = multer.memoryStorage();
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 } // Límite de 5MB por archivo (ajusta según necesites)
+  limits: { fileSize: 5 * 1024 * 1024 } // Límite de 5MB por archivo 
 });
 
 module.exports = upload;
