@@ -8,7 +8,7 @@ class ProjectsTaskService{
     async getById(id){
         const project = await this.projectService.getById(id);
         if(project.length > 0){
-            const tasks = await this.taskService.getAllByProjectId(project[0].id);
+            const tasks = await this.taskService.getAllTasksByProjectId(project[0].id);
             return {project, tasks: tasks.rows};
         }
         return null;
@@ -28,7 +28,7 @@ class ProjectsTaskService{
         return null;
     }
 
-    async update(id, projectData, taskData, idTasksDedeleted = []){
+    async update(id, projectData, taskData, idTasksDedeleted = []. files=null){
         const project = await this.projectService.update(id, projectData);
         if(project){
 

@@ -19,7 +19,7 @@ class TaskModel {
         return rows;
     }
 
-    async getAllByProjectId(projectId) {
+    async getAllTasksByProjectId(projectId) {
         let query = 'SELECT id, project_id, title, description, status, priority, assignee_id, due_date, created_at FROM tasks WHERE project_id = $1';
         const rows = await pool.query(query, [projectId]);
         return rows;

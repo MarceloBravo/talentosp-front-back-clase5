@@ -35,8 +35,8 @@ class AttachmentsService{
         return result;
     }
 
-    async deleteByTaskId(taskId){
-        const result = await this.model.deleteByTaskId(taskId);
+    async deleteByOwnerId(Id){
+        const result = await this.model.deleteById(Id);        
         return result;
     }
 

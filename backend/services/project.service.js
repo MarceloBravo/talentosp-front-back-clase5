@@ -23,7 +23,7 @@ class ProjectService{
 
         // Si hay archivos nuevos y attachmentsService está disponible, guardarlos
         if (files && files.length > 0 && this.attachmentsService) {
-            await this.uploadFileService.saveAttachments(files, project.id);
+            await this.uploadFileService.saveAttachments(files, project.id, '/project');
         }
 
         return project;
@@ -38,17 +38,19 @@ class ProjectService{
 
         // Si hay archivos nuevos y attachmentsService está disponible, guardarlos
         if (files && files.length > 0 && this.attachmentsService) {
-            await this.uploadFileService.saveAttachments(files, project.id);
+            await this.uploadFileService.saveAttachments(files, project.id, '/project');
         }
 
         return project;
     }
 
     async delete(id){
-        const result = await this.model.delete(id);
-        if(result > 0){
-            return result;
+        // Si hay archivos nuevos y attachmentsService está disponible, eliminarlos
+        if(this.attachmentsService){
+            await this.uploadFileService.deleteAttachmentsFiles(id);
+            await this.attachmentsService.deleteByOwnerId(id);
         }
+        const result = await this.model.delete(id);
         return result;
     }
 

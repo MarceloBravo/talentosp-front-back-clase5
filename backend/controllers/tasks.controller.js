@@ -31,7 +31,7 @@ class TasksController{
     async getAllTasksByProjectId(req, res, next){
         try {
             const {projectId} = req.params;
-            const tasks = await this.service.getAllByProjectId(projectId);
+            const tasks = await this.service.getAllTasksByProjectId(projectId);
             res.json({data: tasks});
         }catch(error){
             console.log(error);

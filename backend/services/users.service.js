@@ -55,7 +55,7 @@ class UsersService{
         const result = await this.model.updateUser(id, data);
 
         if(!result){
-            throw new Error('Error al actualizar el usuario.')
+            throw new Error('Error al actualizar el usuario.');
         }
 
         return result;

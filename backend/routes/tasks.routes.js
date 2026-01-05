@@ -22,8 +22,8 @@ module.exports = (app) => {
     app.get('/api/tasks', authenticateToken,  (req, res, next) => taskController.getAllTasks(req, res, next));
     app.get('/api/tasks/:id', authenticateToken, (req, res, next) => taskController.getTaskById(req, res, next));
     app.get('/api/tasks/project/:projectId', authenticateToken, (req, res, next) => taskController.getAllTasksByProjectId(req, res, next));
-    app.post('/api/tasks', authenticateToken, validaDatosTarea, parseTaskData, upload.array('attachments', 10), (req, res, next) => taskController.createTask(req, res, next));
-    app.put('/api/tasks/:id', authenticateToken, validaDatosTarea, parseTaskData, upload.array('attachments', 10), (req, res, next) => taskController.updateTask(req, res, next));
+    app.post('/api/tasks', upload.array('attachments', 10), authenticateToken, validaDatosTarea, parseTaskData,  (req, res, next) => taskController.createTask(req, res, next));
+    app.put('/api/tasks/:id', upload.array('attachments', 10), authenticateToken, validaDatosTarea, parseTaskData, (req, res, next) => taskController.updateTask(req, res, next));
     app.delete('/api/tasks/:id', authenticateToken,(req, res, next) => taskController.deleteTask(req, res, next));
     app.delete('/api/tasks/project/:projectId', authenticateToken,(req, res, next) => taskController.deleteTaskByProjectId(req, res, next));
 }

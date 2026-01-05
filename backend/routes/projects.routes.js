@@ -6,6 +6,7 @@ const TaskModel = require('../models/task.model.js');
 const ProjectModel = require('../models/project.model.js');
 const AttachmentsService = require('../services/attachments.service.js');
 const AttachmentsProjectModel = require('../models/attachmentsProject.model.js');
+const UploadFileService = require('../services/uploadFile.service.js');
 
 const validaDatosProject = require('../middlewares/validaDatosProject.middleware.js');
 const validaDatosTareas = require('../middlewares/validaDatosTareas.middleware.js');
@@ -13,12 +14,11 @@ const authenticateToken = require('../middlewares/auth.middleware.js');
 const parseProjectData = require('../middlewares/parseProjectData.middleware.js');
 
 const upload = require('../middlewares/upload.js');
-const UploadFileService = require('../services/uploadFile.service.js');
 
 module.exports = (app) => {
     const attachmentsProjectModel = new AttachmentsProjectModel();
     const attachmentsService = new AttachmentsService(attachmentsProjectModel);
-    const uploadFileService = new UploadFileService();
+    const uploadFileService = new UploadFileService(attachmentsService);
     const projectModel = new ProjectModel();
     const taskModel = new TaskModel();
     const projectService = new ProjectService(projectModel, attachmentsService, uploadFileService);

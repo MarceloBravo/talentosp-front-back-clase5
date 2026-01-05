@@ -44,7 +44,16 @@ CREATE TABLE tasks (
 -- 4. Tabla de Adjuntos (Gestión de Archivos)
 CREATE TABLE attachments (
     id SERIAL PRIMARY KEY,
-    task_id INTEGER REFERENCES tasks(id) ON DELETE CASCADE,
+    owner_id INTEGER REFERENCES tasks(id) ON DELETE CASCADE,
+    file_name VARCHAR(255) NOT NULL,
+    file_url VARCHAR(255) NOT NULL,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 5. Tabla de Adjuntos para proyectos (Gestión de Archivos)
+CREATE TABLE attachments_project (
+    id SERIAL PRIMARY KEY,
+    project_id INTEGER REFERENCES tasks(id) ON DELETE CASCADE,
     file_name VARCHAR(255) NOT NULL,
     file_url VARCHAR(255) NOT NULL,
     uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -66,6 +75,6 @@ INSERT INTO tasks (project_id, title, description, status, priority, assignee_id
 (1, 'Crear Dashboard de Métricas', 'Visualización de tareas y estados globales', 'todo', 'medium', 2, '2026-01-05');
 
 -- Insertar un Adjunto de prueba
-INSERT INTO attachments (task_id, file_name, file_url) VALUES 
+INSERT INTO attachments (owner_id, file_name, file_url) VALUES 
 (1, 'docker-config-diagram.png', 'https://storage.taskflow.ai/attachments/d1.png');
 

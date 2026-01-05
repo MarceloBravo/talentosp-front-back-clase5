@@ -23,8 +23,8 @@ class TaskService{
     
 
 
-    async getAllByProjectId(id){
-        return await this.model.getAllByProjectId(id);
+    async getAllTasksByProjectId(id){
+        return await this.model.getAllTasksByProjectId(id);
     }
 
 
@@ -39,7 +39,7 @@ class TaskService{
 
         // Si hay archivos nuevos y attachmentsService está disponible, guardarlos
         if (files && files.length > 0 && this.attachmentsService) {
-            await this.uploadFileService.saveAttachments(files, task.id);
+            await this.uploadFileService.saveAttachments(files, task.id, '/tasks');
         }
 
         return task;
@@ -57,7 +57,7 @@ class TaskService{
 
         // Si hay archivos nuevos y attachmentsService está disponible, guardarlos
         if (files && files.length > 0 && this.attachmentsService) {
-            await this.uploadFileService.saveAttachments(files, task.id);
+            await this.uploadFileService.saveAttachments(files, task.id, '/tasks');
         }
 
         return task;
@@ -66,8 +66,7 @@ class TaskService{
 
 
     async delete(id){
-        // Si hay attachmentsService, eliminar archivos asociados
-        await this.uploadFileService.deleteTasksFiles(id);
+        await this.uploadFileService.deleteAttachmentsFiles(id);
 
         return await this.model.delete(id);
     }

@@ -45,7 +45,7 @@ class UploadFileService{
      * @param {Number} regId - ID de la tarea
      * @returns {Array} - Array de attachments creados
      */
-    async saveAttachments(files, regId) {
+    async saveAttachments(files, regId, directoryName = '') {
         if (!files || files.length === 0) {
             return [];
         }
@@ -56,7 +56,7 @@ class UploadFileService{
         try {
             // Guardar todos los archivos en disco
             for (const file of files) {
-                const fileUrl = await this.saveFileToDisk(file, regId);
+                const fileUrl = await this.saveFileToDisk(file, regId, directoryName);
                 savedFiles.push({ file, fileUrl });
             }
 
@@ -64,7 +64,7 @@ class UploadFileService{
             if(this.attachmentsService){
                 for (const { file, fileUrl } of savedFiles) {
                     const attachment = await this.attachmentsService.create({
-                        task_id: regId,
+                        owner_id: regId,
                         file_name: file.originalname,
                         file_url: fileUrl
                     });
@@ -79,7 +79,7 @@ class UploadFileService{
             // Si falla, limpiar archivos guardados
             for (const { fileUrl } of savedFiles) {
                 try {
-                    const fullPath = path.join(__dirname, '../', fileUrl);
+                    const fullpath = path.join( process.cwd() + att.file_url);
                     await fs.unlink(fullPath);
                 } catch (unlinkError) {
                     console.error('Error al eliminar archivo:', unlinkError);
@@ -105,36 +105,35 @@ class UploadFileService{
         return fileUrl;
     }
 
-    async deleteTasksFiles(id){
-        if (this.attachmentsService) {
-            try {
-                const deletedAttachments = await this.attachmentsService.deleteByTaskId(id);
-                // Eliminar archivos físicos
-                for (const attachment of deletedAttachments) {
-                    try {
-                        const fullPath = path.join(__dirname, '../', attachment.file_url);
-                        await fs.unlink(fullPath);
-                    } catch (error) {
-                        console.error('Error al eliminar archivo físico:', error);
-                    }
-                }
-            } catch (error) {
-                console.error('Error al eliminar attachments:', error);
-            }
-        }
-    }
-
     async deleteAvatarFile(user){
         if (user) {
             try {
                 // Eliminar archivos físicos - puede ser file_url o file_url
                 const fileUrl = user.file_url || user.file_url;
                 if(fileUrl) {
-                    const fullPath = path.join(__dirname, '../', fileUrl);
+                    const fullpath = path.join( process.cwd() + att.file_url);
                     await fs.unlink(fullPath);
                 }
             } catch (error) {
                 console.error('Error al eliminar archivo físico:', error);
+            }
+        }
+    }
+
+    async deleteAttachmentsFiles(id){
+        if (this.attachmentsService) {
+            try{
+                const deletedAttachments = await this.attachmentsService.deleteByOwnerId(id);
+                for(const att of deletedAttachments){
+                    try{
+                        const fullpath = path.join( process.cwd() + att.file_url);
+                        await fs.unlink(fullpath);
+                    }catch(error){
+                        console.log('Error al intentar eliminar el archivo ' + att.file_name);
+                    }
+                }
+            }catch(error){
+                console.log('Error al eliminar adjuntos');
             }
         }
     }
