@@ -6,53 +6,51 @@ import AuthContext from './AuthContext';
 import { AuthReducer, initialState, AUTH_ACTIONS } from './AuthReducer';
 
 export const AuthProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(AuthReducer, initialState);
-    const { isLoading, error, userSession } = state;
+  const [state, dispatch] = useReducer(AuthReducer, initialState);
+  const { isLoading, error, userSession } = state;
 
+  const login = async (credentials) => {
+      dispatch({ type: AUTH_ACTIONS.LOGIN_START });
+      
+      try{
+          const response = await instance.post('/api/login', credentials);
+          if(response?.data?.data?.access_token){
+              const payload = jwtDecode(response.data.data.access_token);
 
+              dispatch({
+                  type: AUTH_ACTIONS.LOGIN_SUCCESS,
+                  payload: {
+                      user: payload.user,
+                      accessToken: response.data.data.access_token,
+                  }
+              });
 
-    const login = async (credentials) => {
-        dispatch({ type: AUTH_ACTIONS.LOGIN_START });
-        
-        try{
-            const response = await instance.post('/api/login', credentials);
-            if(response?.data?.data?.access_token){
-                const payload = jwtDecode(response.data.data.access_token);
+              if(credentials.rememberMe){
+                saveRefreshToken(response.data.data.refresh_token); // Guarda el refresh-token en cookie
+              }
 
-                dispatch({
-                    type: AUTH_ACTIONS.LOGIN_SUCCESS,
-                    payload: {
-                        user: payload.user,
-                        accessToken: response.data.data.access_token,
-                    }
-                });
+          }else{
+              dispatch({
+                  type: AUTH_ACTIONS.LOGIN_ERROR,
+                  payload: 'Usuario y o contraseña no válidos.'
+              });
+          }
+      }catch(error){
+          dispatch({
+              type: AUTH_ACTIONS.LOGIN_ERROR,
+              payload: error.response?.data?.message || 'Error al autenticar al usuario'
+          });
+      }
+  };
 
-                if(credentials.rememberMe){
-                  saveRefreshToken(response.data.data.refresh_token); // Guarda el refresh-token en cookie
-                }
-
-            }else{
-                dispatch({
-                    type: AUTH_ACTIONS.LOGIN_ERROR,
-                    payload: 'Usuario y o contraseña no válidos.'
-                });
-            }
-        }catch(error){
-            dispatch({
-                type: AUTH_ACTIONS.LOGIN_ERROR,
-                payload: error.response?.data?.message || 'Error al autenticar al usuario'
-            });
-        }
-    };
-
-    const logout = async () => {
-        dispatch({ type: AUTH_ACTIONS.LOGOUT });
-        const refreshToken = getRefreshTokenFromCookie();
-        if(!refreshToken){
-            return;
-        }
-        await instance.post('/api/logout', {refreshToken});
-    };
+  const logout = async () => {
+      dispatch({ type: AUTH_ACTIONS.LOGOUT });
+      const refreshToken = getRefreshTokenFromCookie();
+      if(!refreshToken){
+          return;
+      }
+      await instance.post('/api/logout', {refreshToken});
+  };
 
   // Función para actualizar userSession (necesaria para el interceptor de Axios)
   const setUserSession = (newSession) => {
