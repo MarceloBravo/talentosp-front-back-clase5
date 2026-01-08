@@ -3,7 +3,7 @@ import { saveRefreshToken, getRefreshTokenFromCookie } from "../utils/refreshTok
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const instance = axios.create({
+const axiosInstance = axios.create({
   baseURL: API_URL,
 });
 
@@ -15,7 +15,7 @@ export const injectStore = (_store) => {
 };
 
 
-instance.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   (config) => {
     const token = store.userSession.accessToken;
     if (token) {
@@ -28,7 +28,7 @@ instance.interceptors.request.use(
   }
 );
 
-instance.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -41,7 +41,7 @@ instance.interceptors.response.use(
       try {
         const refreshToken = getRefreshTokenFromCookie();
         // Pedir nuevo access token usando refresh token (cookie segura)
-        const { data } = await instance.post(`/auth/refresh`,
+        const { data } = await axiosInstance.post(`/auth/refresh`,
           {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ refreshToken })
@@ -58,7 +58,7 @@ instance.interceptors.response.use(
 
         // Reintentar la request original con el nuevo token
         originalRequest.headers.Authorization = `Bearer ${data.access_token}`;
-        return instance(originalRequest);
+        return axiosInstance(originalRequest);
       } catch (err) {
         await store.logout();
         // Si falla el refresh → redirigir a login
@@ -69,4 +69,4 @@ instance.interceptors.response.use(
   }
 );
 
-export default instance;
+export default axiosInstance;

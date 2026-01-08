@@ -19,7 +19,7 @@ module.exports = (app) => {
     const taskService = new TaskService(taskModel, uploadFileService, attachmentsService);
     const taskController = new TasksController(taskService);
 
-    app.get('/api/tasks', authenticateToken,  (req, res, next) => taskController.getAllTasks(req, res, next));
+    app.get('/api/tasks',  (req, res, next) => taskController.getAllTasks(req, res, next));
     app.get('/api/tasks/:id', authenticateToken, (req, res, next) => taskController.getTaskById(req, res, next));
     app.get('/api/tasks/project/:projectId', authenticateToken, (req, res, next) => taskController.getAllTasksByProjectId(req, res, next));
     app.post('/api/tasks', upload.array('attachments', 10), authenticateToken, validaDatosTarea, parseTaskData,  (req, res, next) => taskController.createTask(req, res, next));

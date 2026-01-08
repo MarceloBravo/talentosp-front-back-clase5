@@ -22,7 +22,7 @@ class ProjectModel {
             return rows.rows;
         }
 
-        return null;
+        return [];
     }
 
     async getById(id) {

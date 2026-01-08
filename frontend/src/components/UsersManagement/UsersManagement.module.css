@@ -1,0 +1,168 @@
+.container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1c4d7c;
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.usersGrid {
+    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.userCard {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s ease;
+}
+
+.userCard:hover {
+    box-shadow: 0 4px 12px rgba(28, 77, 124, 0.1);
+    transform: translateY(-2px);
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #f0f0f0;
+    border: 2px solid #1c4d7c;
+}
+
+.userInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.userName {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1c4d7c;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.userEmail {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cardBody {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.infoRow {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #333;
+}
+
+.infoLabel {
+    font-weight: 600;
+    color: #1c4d7c;
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.roleBadge, .statusBadge {
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.roleAdmin {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.roleUser {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.statusActive {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.statusInactive {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.cardFooter {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f0f0f0;
+    font-size: 0.75rem;
+    color: #888;
+    text-align: center;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: #999;
+    grid-column: 1 / -1;
+}
+
+.emptyState p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Scrollbar */
+.container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.container::-webkit-scrollbar-thumb {
+    background: #1c4d7c;
+    border-radius: 10px;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+    background: #2d6ba3;
+}

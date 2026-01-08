@@ -16,7 +16,11 @@ class TaskModel {
         }
 
         const rows = await pool.query(query, params);
-        return rows;
+        if(rows?.rows?.length > 0){
+            return rows.rows;
+        }
+
+        return [];
     }
 
     async getAllTasksByProjectId(projectId) {

@@ -1,4 +1,4 @@
-const initialState = {
+export const initialState = {
     projects: [],
     currentProject: null,
     tasks: [],
@@ -17,8 +17,18 @@ const initialState = {
       overdueTasks: 0
     }
   };
+
+  export const DASHBOARD_ACTIONS = {
+    SET_LOADING: 'SET_LOADING',
+    SET_PROJECTS: 'SET_PROJECTS',
+    SELECT_PROJECT: 'SELECT_PROJECT',
+    SET_TASKS: 'SET_TASKS',
+    SET_USERS: 'SET_USERS',
+    SET_ERROR: 'SET_ERROR',
+    SET_FILTER: 'SET_FILTER'
+  }
   
-  function dashboardReducer(state, action) {
+  export function dashboardReducer(state, action) {
     switch (action.type) {
       case 'SET_LOADING':
         return { ...state, loading: action.payload };
@@ -51,6 +61,19 @@ const initialState = {
           }
         };
   
+      case 'SET_USERS':
+        return {
+          ...state,
+          users: action.payload
+        };
+
+      case 'SET_ERROR':
+        return {
+          ...state,
+          error: action.payload,
+          loading: false
+        };
+
       case 'SET_FILTER':
         return {
           ...state,
