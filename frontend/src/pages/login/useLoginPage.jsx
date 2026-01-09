@@ -1,0 +1,56 @@
+import { useEffect, useState } from 'react';
+import { useAuth } from '../../context/Auth/useAuth';
+import { useNavigate } from 'react-router';
+
+export const useLoginPage = () => {
+  const [ formLogin, setFormLogin ] = useState({email: '', password: '', rememberMe: false});
+  const [ errorsLogin, setErrorsLogin ] = useState({email: '', password: ''});
+  const { login, isLoading, error, userSession } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userSession.isLoggedIn) {
+      console.log(userSession)
+      navigate('/');
+    }
+  }, [userSession.isLoggedIn, navigate]);
+
+  const handleInputChange = (e) => {
+    if(e.target.value.trim().length === 0){
+      setErrorsLogin({...errorsLogin, [e.target.name]: 'Este campo es requerido'});
+    }else{
+      setErrorsLogin({...errorsLogin, [e.target.name]: ''});
+    }
+    setFormLogin({...formLogin, [e.target.name]: e.target.value});
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try{
+        await login(formLogin)
+        if(error){
+          throw new Error(error);
+        }
+        //navigate('/');      
+    }catch(error){
+      alert(error.message);
+      console.log(error);
+    }
+  };
+
+  const handleRememberMeClick = () => {
+    setFormLogin({...formLogin, rememberMe: !formLogin.rememberMe});
+  }
+  
+
+  return {
+      formLogin,
+      errorsLogin,
+      isLoading,
+      error,
+      userSession,
+      handleInputChange,
+      handleSubmit,
+      handleRememberMeClick
+  }
+}

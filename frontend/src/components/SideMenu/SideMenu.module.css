@@ -1,0 +1,53 @@
+.sideMenu {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 100vh;
+    background-color: #f8f9fa;
+    padding: 20px 12px 20px 0px;
+    border-right: 1px solid #dee2e6;
+}
+
+.sideMenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.sideMenu li {
+    margin-bottom: 10px;
+}
+
+.link {
+    text-decoration: none;
+    color: #343a40;
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: block;
+    padding: 12px 6px;
+    /* border-radius: 8px; */
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.logoutButton:hover, 
+.link:hover {
+    background-color: #e9ecef;
+    color: #0056b3;
+}
+
+.link.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: 600;
+}
+
+.logoutButton {
+    /* Inherits from .link, can add specific overrides here */
+    color: #343a40;
+}

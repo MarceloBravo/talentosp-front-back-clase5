@@ -1,18 +1,22 @@
 import { Navigation } from './routes/Navigation';
 import { AppProviders } from './context/AppProviders';
+import { SideMenu } from './components/SideMenu/SideMenu';
+import { BrowserRouter } from 'react-router';
 
 import './App.css';
-import { BrowserRouter } from 'react-router';
 
 function App() {
   return (
-    <div className="App">
-      <AppProviders>
-          <BrowserRouter>
-            <Navigation/>
-          </BrowserRouter>
-      </AppProviders>
-    </div>
+    <AppProviders>
+      <BrowserRouter>
+        <div className="appContainer">
+          <SideMenu />
+          <main className="mainContent">
+            <Navigation />
+          </main>
+        </div>
+      </BrowserRouter>
+    </AppProviders>
   );
 }
 

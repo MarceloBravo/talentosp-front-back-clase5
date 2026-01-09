@@ -8,7 +8,7 @@ const GET_USERS = END_POINT + '/api/users';
 // Función auxiliar para ejecutar peticiones
 const execute = async (endpoint) => {
     try {
-        const result = await axiosInstance.get(endpoint);
+        const result = await axiosInstance(endpoint);
         return result.data;
     } catch (error) {
         throw error;

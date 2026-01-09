@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DASHBOARD_ACTIONS } from "../../context/Dashboard/DashboardReducer";
 import { useDashboard } from "../../context/Dashboard/useDashboard";
 import { useAuth } from "../../context/Auth/useAuth";
@@ -12,8 +12,16 @@ import styles from './Dashboard.module.css';
 
 export const Dashboard = () => {
     const { state, dispatch } = useDashboard();
-    const { user } = useAuth();
-    const isAdmin = user?.role === 'admin';
+    const { userSession } = useAuth();
+    const [ isAdmin, setIsAdmin ] = useState(false);
+
+    useEffect(() => {
+      if(userSession.user){
+        setIsAdmin(userSession.user.role === 'admin');
+      }else{
+        setIsAdmin(false);
+      }
+    },[userSession])
   
     // Cargar datos iniciales
     useEffect(() => {

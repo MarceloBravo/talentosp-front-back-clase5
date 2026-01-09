@@ -26,9 +26,6 @@ class LoginController{
         }
     }
 
-    
-
-
 
     async refreshToken(req, res, next){
         try {

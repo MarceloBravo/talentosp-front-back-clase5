@@ -16,7 +16,6 @@ export const AuthProvider = ({ children }) => {
           const response = await instance.post('/api/login', credentials);
           if(response?.data?.data?.access_token){
               const payload = jwtDecode(response.data.data.access_token);
-
               dispatch({
                   type: AUTH_ACTIONS.LOGIN_SUCCESS,
                   payload: {
