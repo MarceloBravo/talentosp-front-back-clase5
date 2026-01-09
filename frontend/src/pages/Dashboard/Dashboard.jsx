@@ -29,9 +29,6 @@ export const Dashboard = () => {
       // eslint-disable-next-line
     }, []);
 
-    useEffect(() => {
-      console.log('state', state);
-    },[state])
   
     const loadDashboardData = async () => {
       dispatch({ type: DASHBOARD_ACTIONS.SET_LOADING, payload: true });

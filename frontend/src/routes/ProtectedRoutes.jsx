@@ -10,12 +10,11 @@ export const ProtectedRoutes = ({ children, requiredRol}) => {
         return <div>Cargando...</div>
     }
 
-
     if(!userSession?.user || error){
         return <Navigate to="/login" state={{from: location }} replace/>
     }
 
-    if(requiredRol && userSession.user?.rol !== requiredRol){
+    if(requiredRol && userSession.user?.role !== requiredRol){
         return <Navigate to="/login" state={{from: location }} replace/>
     }
 

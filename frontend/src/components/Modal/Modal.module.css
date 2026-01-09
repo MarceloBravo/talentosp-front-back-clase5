@@ -1,0 +1,6 @@
+.customModal{
+    opacity: unset !important;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.264);
+}

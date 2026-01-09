@@ -8,8 +8,8 @@ export const SideMenu = () => {
     const [ isAdmin, setIsAdmin ] = useState(false);
 
     useEffect(()=>{
-        setIsAdmin(userSession?.role === 'admin');
-    },[])
+        setIsAdmin(userSession?.user?.role === 'admin');
+    },[userSession])
 
     const handleLogout = () => {
         logout();

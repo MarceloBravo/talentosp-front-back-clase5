@@ -1,16 +1,7 @@
+import { formatDate } from '../../utils/dates';
 import styles from './UsersManagement.module.css';
 
 export const useUsersManagement = () => {
-
-    const formatDate = (dateString) => {
-        if (!dateString) return 'Fecha no disponible';
-        const date = new Date(dateString);
-        return date.toLocaleDateString('es-ES', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        });
-    };
 
     const translateRole = (role) => {
         const roleMap = {

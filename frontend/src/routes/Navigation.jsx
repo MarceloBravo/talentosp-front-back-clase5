@@ -4,6 +4,8 @@ import { ProtectedRoutes } from './ProtectedRoutes'
 import { LoginPage } from '../pages/Login/LoginPage'
 import { Dashboard } from '../pages/Dashboard/Dashboard'
 import { RegisterPage } from '../pages/Register/RegisterPage'
+import { UserListPage } from '../pages/users/UserListPage/UserListPage'
+import { UserFormPage } from '../pages/users/UserFormPage/UserFormPage'
 
 export const Navigation = () => {
 
@@ -13,6 +15,9 @@ export const Navigation = () => {
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/register" element={<RegisterPage/>}/>
             <Route path="/home" element={<ProtectedRoutes requiredRol="admin"><HomePage/></ProtectedRoutes>}/> 
+            <Route path="/users" element={<ProtectedRoutes requiredRol="admin"><UserListPage/></ProtectedRoutes>}/> 
+            <Route path="/users/new" element={<ProtectedRoutes requiredRol="admin"><UserFormPage/></ProtectedRoutes>}/> 
+            <Route path="/users/:id" element={<ProtectedRoutes requiredRol="admin"><UserFormPage/></ProtectedRoutes>}/> 
         </Routes>
     )
 }
