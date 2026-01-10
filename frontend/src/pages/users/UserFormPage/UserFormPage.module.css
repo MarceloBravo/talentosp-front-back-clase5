@@ -1,0 +1,24 @@
+.leftDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    .imgAvatar{
+        width: -webkit-fill-available;
+        border: solid thin #c8c7c7c9;
+        margin-bottom: 10px;
+    }
+}
+
+.btnUploadAvatar{
+    width: fit-content;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: flex-end;
+
+    button{
+        margin-right: 5px;
+    }
+}
