@@ -31,9 +31,9 @@ class UserController{
             const file = req.file || null; // Archivo desde multer (memoryStorage) - single file
             const result = await this.service.create(data, file);
             if(result){
-                return res.json({mensaje: 'Usuario creado exitosamente.',data: result});
+                return res.json({code: 200, mensaje: 'Usuario creado exitosamente.',data: result});
             }else{
-                res.json({error: 'No se pudo crear el usuario.'});
+                res.json({code: 404,error: 'No se pudo crear el usuario.'});
             }
         }catch(error){
             console.log(error);
@@ -49,9 +49,9 @@ class UserController{
             const file = req.file || null; // Archivo desde multer (memoryStorage) - single file
             const result = await this.service.update(id, data, file);
             if(result){
-                return res.json({mensaje: 'Usuario actualizado exitosamente.',data: result});
+                return res.json({code: 200, mensaje: 'Usuario actualizado exitosamente.',data: result});
             }else{
-                res.json({error: 'No se pudo actualizar el usuario.'});
+                res.json({code: 404, error: 'No se pudo actualizar el usuario.'});
             }
         }catch(error){
             console.log(error);
@@ -64,9 +64,9 @@ class UserController{
             const id = req.params.id;
             const result = await this.service.delete(id);
             if(result > 0){
-                return res.json({mensaje: 'Usuario eliminado exitosamente.'});
+                return res.json({code: 200, mensaje: 'Usuario eliminado exitosamente.'});
             }else{
-                res.json({error: 'No se pudo eliminar el usuario.'});
+                res.json({code: 404, error: 'No se pudo eliminar el usuario.'});
             }
         }catch(error){
             console.log(error);

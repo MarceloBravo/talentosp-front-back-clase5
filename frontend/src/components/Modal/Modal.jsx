@@ -9,7 +9,7 @@ export const Modal = () => {
             {isOpen && (
                 <div className={"modal fade " + styles.customModal} id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
                     <div className="modal-dialog">
-                        <div className="modal-content">
+                        <div className={styles.modalContent + " modal-content"}>
                             <div className="modal-header">
                                 <h1 className="modal-title fs-5" id="exampleModalLabel">{title}</h1>
                             </div>

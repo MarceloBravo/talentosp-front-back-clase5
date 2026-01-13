@@ -21,7 +21,7 @@ export const UserListPage = () => {
     return (
         <>
             {isLoading && <SpinnerComponent/>}
-            {error && <div class="alert alert-danger" role="alert">
+            {error && <div className="alert alert-danger" role="alert">
                 {error}
             </div>}
             <h1>Lista de Usuarios</h1>
@@ -41,7 +41,7 @@ export const UserListPage = () => {
                     <button className={styles.noBorderButton} type="button" onClick={handleBtnSearchClick}>🔍</button>
                 </div>
             </div>
-            <table class="table table-striped">
+            <table className="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col">Nombre</th>

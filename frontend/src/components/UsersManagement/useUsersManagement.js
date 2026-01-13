@@ -1,6 +1,8 @@
 import { formatDate } from '../../utils/dates';
 import styles from './UsersManagement.module.css';
 
+const END_POINT = process.env.REACT_APP_API_URL;
+
 export const useUsersManagement = () => {
 
     const translateRole = (role) => {
@@ -27,7 +29,7 @@ export const useUsersManagement = () => {
         <div className={styles.userCard}>
             <div className={styles.cardHeader}>
                 <img
-                    src={user.file_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.nombre)}&background=random&color=fff`}
+                    src={END_POINT + user.file_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.nombre)}&background=random&color=fff`}
                     alt={`Avatar de ${user.nombre}`}
                     className={styles.avatar}
                 />

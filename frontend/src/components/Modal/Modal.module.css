@@ -4,3 +4,7 @@
     align-items: center;
     background-color: rgba(0, 0, 0, 0.264);
 }
+
+.modalContent{
+    min-width: 25em;
+}

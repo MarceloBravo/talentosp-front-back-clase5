@@ -1,9 +1,22 @@
 
-export const cargarImagen = async (url) => {
-    const urlAlternativa = process.env.REACT_APP_API_URL + '\\' + url;
-    const resultado = await obtenerImagenValida(url, urlAlternativa);
-    return resultado;
-}
+export const cargarImagen = async (path) => {
+  if (!path) {
+    return null;
+  }
+
+  // Limpia la ruta: reemplaza barras invertidas y elimina barras duplicadas.
+  const cleanedPath = path.replace(/\\/g, '/').replace(/\/{2,}/g, '/');
+  
+  // Construye la URL completa anteponiendo la URL base de la API.
+  const imageUrl = `${process.env.REACT_APP_API_URL}${cleanedPath}`;
+
+  // Verifica si la URL es una imagen válida y accesible.
+  if (await verificarImagen(imageUrl)) {
+    return imageUrl;
+  }
+  
+  return null;
+};
 
 
 /**
@@ -12,11 +25,13 @@ export const cargarImagen = async (url) => {
  * @returns {Promise<boolean>} - true si la imagen existe, false si no.
  */
 const verificarImagen = async (url) => {
+  if (!url) return false;
   try {
     const response = await fetch(url, { method: 'HEAD' });
     // Verifica que la respuesta sea exitosa y que el tipo de contenido sea imagen
     return response.ok && response.headers.get('content-type')?.startsWith('image');
   } catch (error) {
+    // Es normal que falle si el recurso no existe, no es necesario registrar el error.
     return false;
   }
 }

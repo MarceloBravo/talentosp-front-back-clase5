@@ -23,11 +23,25 @@ class UploadFileService{
             await fs.mkdir(uploadsDir, { recursive: true });
         }
 
+        // Derivar la extensión del MIME type para mayor fiabilidad
+        const mimeTypeMap = {
+            'image/jpeg': '.jpg',
+            'image/png': '.png',
+            'image/gif': '.gif',
+            'image/webp': '.webp'
+        };
+        let ext = mimeTypeMap[file.mimetype];
+
+        // Si el mimetype no es de una imagen conocida, intentar obtenerla del nombre original
+        if (!ext) {
+            ext = path.extname(file.originalname);
+        }
+
+        const originalName = file.originalname;
+        const baseName = path.basename(originalName, path.extname(originalName));
+
         // Generar nombre único para el archivo
         const timestamp = Date.now();
-        const originalName = file.originalname;
-        const ext = path.extname(originalName);
-        const baseName = path.basename(originalName, ext);
         const uniqueFileName = `${regId}_${timestamp}_${baseName}${ext}`;
         const filePath = path.join(uploadsDir, uniqueFileName);
 
@@ -106,16 +120,19 @@ class UploadFileService{
     }
 
     async deleteAvatarFile(user){
-        if (user) {
+        if (user && user.file_url) {
             try {
-                // Eliminar archivos físicos - puede ser file_url o file_url
-                const fileUrl = user.file_url || user.file_url;
-                if(fileUrl) {
-                    const fullpath = path.join( process.cwd() + att.file_url);
-                    await fs.unlink(fullPath);
-                }
+                // user.file_url es '/uploads/avatars/file.jpg'. process.cwd() es '.../backend'.
+                // Se debe quitar la barra inicial de user.file_url para unirlos correctamente.
+                const relativePath = user.file_url.substring(1);
+                const fullPath = path.join(process.cwd(), relativePath);
+                
+                await fs.unlink(fullPath);
             } catch (error) {
-                console.error('Error al eliminar archivo físico:', error);
+                // Si el archivo no existe (ENOENT), no es un error crítico, así que lo ignoramos.
+                if (error.code !== 'ENOENT') {
+                    console.error('Error al eliminar archivo físico:', error);
+                }
             }
         }
     }
@@ -126,10 +143,14 @@ class UploadFileService{
                 const deletedAttachments = await this.attachmentsService.deleteByOwnerId(id);
                 for(const att of deletedAttachments){
                     try{
-                        const fullpath = path.join( process.cwd() + att.file_url);
+                        // user.file_url es '/uploads/proyecto/file.pdf'. process.cwd() es '.../backend'.
+                        const relativePath = att.file_url.substring(1);
+                        const fullpath = path.join(process.cwd(), relativePath);
                         await fs.unlink(fullpath);
                     }catch(error){
-                        console.log('Error al intentar eliminar el archivo ' + att.file_name);
+                        if (error.code !== 'ENOENT') {
+                            console.log('Error al intentar eliminar el archivo ' + att.file_name);
+                        }
                     }
                 }
             }catch(error){

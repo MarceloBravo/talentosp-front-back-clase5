@@ -34,20 +34,37 @@ class UsersModel {
             const params = [data.nombre, data.email, data.password, data.role];
             
             const result = await cnn.query(query, params);
+
         if(result.rows.length > 0){
+            if(data.file_url){
+                await this.updateUserProfileImage(result.rows[0].id, data.file_url);
+            }
             return result.rows[0];
         }
         return null;
     }
 
     async updateUser(id, data) {
-        const query = 'UPDATE users SET nombre = $1, email = $2, role = $3, activo = $4 WHERE id = $5 RETURNING *'
+        const query = 'UPDATE users SET nombre = $1, email = $2, role = $3, activo = $4 WHERE id = $5 RETURNING *';
         const result = await cnn.query(query, [data.nombre, data.email, data.role, data.activo, id]);
-        if(result.rows.length > 0 && data.password.length > 0){
-            const result = await cnn.query('UPDATE users SET password = $1 WHERE id = $2 RETURNING *', [data.password, id]);
-            return result.rows.length > 0 ? result.rows[0] : null;
+
+        if(data.file_url && result.rows.length > 0){
+            await this.updateUserProfileImage(id, data.file_url);
         }
-        return null;
+
+        if (result.rows.length > 0) {
+            const updatedUser = result.rows[0];
+
+            // Si se proporcionó una nueva contraseña, actualizarla también
+            if (data.password && data.password.length > 0) {
+                const passwordUpdateResult = await cnn.query('UPDATE users SET password = $1 WHERE id = $2 RETURNING *', [data.password, id]);
+                return passwordUpdateResult.rows.length > 0 ? passwordUpdateResult.rows[0] : null;
+            }
+
+            return updatedUser; // Devuelve el usuario actualizado si no se cambió la contraseña
+        }
+
+        return null; // Devuelve null si el usuario no se encontró o la actualización falló
     }
 
     async updateUserProfileImage(id, fileUrl) {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useHttp } from "../../../hooks/useHttp"
 import useUserStore from "../../../store/useUserStore";
 import useModalStore from "../../../store/useModalStore";
+import useToastStore from "../../../store/useToastStore";
 
 const END_POINT = process.env.REACT_APP_API_URL;
 const GET_USERS = END_POINT + '/api/users';
@@ -15,6 +16,8 @@ export const useUserListPage = () => {
     const [ deleteId, setDeleteId ] = useState(null);
     const openModal = useModalStore((state) => state.openModal);
     const response = useModalStore((state) => state.response);  //Recibe la respuesta seleccionada por el usuario en el cuadro de dialogo Modal
+    const showToast = useToastStore((state) => state.showToast);
+
 
 
     useEffect(() => {
@@ -36,8 +39,13 @@ export const useUserListPage = () => {
     useEffect(() => {
         if (response === true && deleteId) {
             const eliminarUsuario = async () => {
-                await sendRequest(DELETE_USERS + '/' + deleteId, 'DELETE');
-                sendRequest(GET_USERS, 'GET', null, true);
+                try{
+                    await sendRequest(DELETE_USERS + '/' + deleteId, 'DELETE');
+                    sendRequest(GET_USERS, 'GET', null, true);
+                    showToast('Usuario eliminado correctamente', 'success');
+                } catch (error) {
+                    showToast(error.message, 'error');
+                }
             }
             eliminarUsuario();
         }
