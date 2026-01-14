@@ -1,0 +1,9 @@
+.noBorderButton{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.searchInput{
+    width: calc(100% - 40px);
+}

@@ -60,7 +60,7 @@ export const useUserListPage = () => {
     }
 
     const handleBtnSearchClick = () => {
-        sendRequest(GET_USERS + '?search=' + searchValue, 'GET', null, true);
+        sendRequest(GET_USERS + '?search=' + encodeURIComponent(searchValue), 'GET', null, true);
     }
 
     const handleBtnDeleteClick = (id) => {
