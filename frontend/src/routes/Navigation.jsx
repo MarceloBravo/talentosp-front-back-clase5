@@ -6,6 +6,7 @@ import { Dashboard } from '../pages/Dashboard/Dashboard'
 import { RegisterPage } from '../pages/Register/RegisterPage'
 import { UserListPage } from '../pages/users/UserListPage/UserListPage'
 import { UserFormPage } from '../pages/users/UserFormPage/UserFormPage'
+import ProjectListsPage from '../pages/Projects/ProjectLists/ProjectListsPage'
 
 export const Navigation = () => {
 
@@ -18,6 +19,11 @@ export const Navigation = () => {
             <Route path="/users" element={<ProtectedRoutes requiredRol="admin"><UserListPage/></ProtectedRoutes>}/> 
             <Route path="/users/new" element={<ProtectedRoutes requiredRol="admin"><UserFormPage/></ProtectedRoutes>}/> 
             <Route path="/users/:id" element={<ProtectedRoutes requiredRol="admin"><UserFormPage/></ProtectedRoutes>}/> 
+            <Route path="/projects" element={<ProtectedRoutes requiredRol="admin"><ProjectListsPage/></ProtectedRoutes>}/> 
+            {/*
+            <Route path="/projects/new" element={<ProtectedRoutes requiredRol="admin"><UserFormPage/></ProtectedRoutes>}/> 
+            <Route path="/projects/:id" element={<ProtectedRoutes requiredRol="admin"><UserFormPage/></ProtectedRoutes>}/> 
+            */}
         </Routes>
     )
 }

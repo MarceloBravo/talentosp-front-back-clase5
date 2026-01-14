@@ -44,7 +44,7 @@ export const ProjectsList = ({projects = [], onSelectProject}) => {
                                 </span>
                                 <span className={styles.metaItem}>
                                     <span className={styles.metaIcon}>👤</span>
-                                    propietario: {project.owner_id}
+                                    propietario: {project.username}
                                 </span>
                             </div>
                         </div>

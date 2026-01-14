@@ -6,7 +6,7 @@ class ProjectModel {
     }
     
     async getAll(search = null) {
-        let query = 'SELECT id, name, description, owner_id, created_at FROM projects';
+        let query = 'SELECT projects.id, name, nombre as username, description, owner_id, projects.created_at FROM projects INNER JOIN users ON projects.owner_id = users.id';
         const params = [];
 
         if(search && search.trim().length > 0){
