@@ -24,9 +24,16 @@ class TaskModel {
     }
 
     async getAllTasksByProjectId(projectId) {
-        let query = 'SELECT id, project_id, title, description, status, priority, assignee_id, due_date, created_at FROM tasks WHERE project_id = $1';
+        let query = `SELECT 
+                        t.id, t.project_id, t.title, t.description, t.status, t.priority, t.assignee_id, u.nombre as username, t.due_date, t.created_at 
+                        FROM tasks t INNER JOIN users u ON t.assignee_id = u.id 
+                        WHERE t.project_id = $1`;
         const rows = await pool.query(query, [projectId]);
-        return rows;
+        if(rows?.rows?.length > 0){
+            return rows.rows;
+        }
+
+        return rows.rows;
     }
 
     async getById(id) {

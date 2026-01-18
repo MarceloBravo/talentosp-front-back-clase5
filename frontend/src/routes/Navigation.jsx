@@ -8,6 +8,7 @@ import { UserListPage } from '../pages/users/UserListPage/UserListPage'
 import { UserFormPage } from '../pages/users/UserFormPage/UserFormPage'
 import ProjectListsPage from '../pages/Projects/ProjectLists/ProjectListsPage'
 import ProjectFormPage from '../pages/Projects/ProjectForm/ProjectFormPage'
+import TasksListsPage from '../pages/Projects/TasksLists/TasksListsPage'
 
 export const Navigation = () => {
 
@@ -23,6 +24,7 @@ export const Navigation = () => {
             <Route path="/projects" element={<ProtectedRoutes requiredRol="admin"><ProjectListsPage/></ProtectedRoutes>}/> 
             <Route path="/projects/new" element={<ProtectedRoutes requiredRol="admin"><ProjectFormPage/></ProtectedRoutes>}/> 
             <Route path="/projects/:id" element={<ProtectedRoutes requiredRol="admin"><ProjectFormPage/></ProtectedRoutes>}/> 
+            <Route path="/tasks/lists/:id" element={<ProtectedRoutes requiredRol="admin"><TasksListsPage/></ProtectedRoutes>}/>
         </Routes>
     )
 }
