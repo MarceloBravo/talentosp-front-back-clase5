@@ -59,8 +59,8 @@ const ProjectListsPage = () => {
                         <td>{project.username}</td>
                         <td>{formatDateDMY(project.created_at)}</td>
                         <td>
-                            <Link to={`/projects/${project.id}`} className={styles.noBorderButton +" btn btn-primary"}>🖊️</Link>
-                            <button className={styles.noBorderButton + " btn btn-danger"} onClick={() => handleBtnDeleteClick(project.id)}>✖️</button>
+                            <Link to={`/projects/${project.id}`} className={styles.noBorderButton +" btn"}>🖊️</Link>
+                            <button className={styles.noBorderButton + " btn"} onClick={() => handleBtnDeleteClick(project.id)}>✖️</button>
                         </td>
                     </tr>
                 )}

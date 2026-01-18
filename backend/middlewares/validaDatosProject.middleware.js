@@ -1,6 +1,6 @@
 function validaDatosProject(req, res, next) {
     const contentType = req.headers["content-type"]
-    const project = contentType.includes("application/json") ? req.body.project : JSON.parse(req.body.project);
+    const project = contentType.includes("multipart/form-data") ? req.body : JSON.parse(req.body);
     const {
         name,
         description,

@@ -28,7 +28,7 @@ module.exports = (app) => {
 
     app.get('/api/projects', (req, res, next) => projectController.getAllProjects(req, res, next));
     app.get('/api/projects/:id', (req, res, next) => projectController.getProjectById(req, res, next));
-    app.post('/api/projects', upload.array('attachments', 10), authenticateToken, validaDatosProject, validaDatosTareas, parseProjectData, (req, res, next) => projectController.createProject(req, res, next));
-    app.put('/api/projects/:id', upload.array('attachments', 10), authenticateToken, validaDatosProject, validaDatosTareas, parseProjectData,(req, res, next) => projectController.updateProject(req, res, next));
+    app.post('/api/projects', upload.array('attachments', 10), authenticateToken, validaDatosProject, parseProjectData, (req, res, next) => projectController.createProject(req, res, next));
+    app.put('/api/projects/:id', upload.array('attachments', 10), authenticateToken, validaDatosProject, parseProjectData,(req, res, next) => projectController.updateProject(req, res, next));
     app.delete('/api/projects/:id', authenticateToken, (req, res, next) => projectController.deleteProject(req, res, next));
 }

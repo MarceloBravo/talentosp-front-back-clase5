@@ -11,7 +11,13 @@ class ProjectService{
     }
 
     async getById(id){
-        return await this.model.getById(id);
+        const result = await this.model.getById(id);
+        if(result.length === 0){
+             throw new Error('El proyecto no existe', { cause: 404 });
+        }
+        const attachments = this.attachmentsService ? await this.attachmentsService.getByOwnerId(id) : [];
+        return {...result[0], attachments};
+
     }
 
 

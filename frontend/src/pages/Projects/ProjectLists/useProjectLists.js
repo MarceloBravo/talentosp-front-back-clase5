@@ -16,6 +16,7 @@ const useProjectLists = () => {
 
     useEffect(()=> {
       sendRequest(ENDPOINT + '/api/projects', 'GET', null, true);
+      // eslint-disable-next-line
     },[])
 
     useEffect(()=> {

@@ -1,31 +1,26 @@
 const parseTaskData = require("./parseTaskData.middleware");
 
 const parseProjectData = (req, res, next) => {    
-    const contentType = req.headers["content-type"]
-    if(contentType.includes("multipart/form-data")){
-        req.body.tasks =  JSON.parse(req.body.tasks);
-        req.body.project = JSON.parse(req.body.project);
-        req.body.idTasksDedeleted = JSON.parse(req.body.idTasksDedeleted);
-    }
-    const {project, tasks} = req.body    
-    const { name, description, owner_id } = project;
-
+    const { name, description, owner_id } = req.body;
+    
     // Formateando datos del project
     if (name) {
-        req.body.project.name = `${name}`;
+        req.body.name = `${name}`;
     }
     if (description) {
-        req.body.project.description = `${description}`
+        req.body.description = `${description}`
     }
     if (owner_id) {
-        req.body.project.owner_id = parseInt(owner_id);
+        req.body.owner_id = parseInt(owner_id);
     }
-
-    // Formateando datos de las tareas
+        
+    // Formateando datos de las tareas (comentado para uso futuro)
+    /*
     tasks.forEach((t, index)=> {
         req = parseTaskData(req, t, index);
     });
-
+    */
+    
     next();
 };
 

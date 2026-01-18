@@ -4,6 +4,10 @@
     cursor: pointer;
 }
 
+.noBorderButton:hover{
+    background: none;
+}
+
 .searchInput{
     width: calc(100% - 40px);
 }

@@ -10,8 +10,8 @@ class AttachmentsService{
         return result;
     }
 
-    async getByTaskId(taskId){
-        const result = await this.model.getByTaskId(taskId);
+    async getByOwnerId(taskId){
+        const result = await this.model.getByOwnerId(taskId);
         return result;
     }
     

@@ -13,7 +13,7 @@ class AttachmentsProjectModel{
     }
 
     
-    async getByTaskId(taskId){
+    async getByOwnerId(taskId){
         const query = 'SELECT id, file_name, file_url, uploaded_at FROM attachments_project WHERE owner_id = $1'
         const result = await pool.query(query, [taskId]);
         return result.rows;

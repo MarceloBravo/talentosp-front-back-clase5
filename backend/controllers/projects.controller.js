@@ -1,5 +1,5 @@
 class ProjectController {
-    constructor(service, projectsTaskService) {
+    constructor(service, projectsTaskService = null) {
         this.service = service;
         this.projectsTaskService = projectsTaskService;
     }
@@ -17,7 +17,7 @@ class ProjectController {
     async getProjectById(req, res, next) {
         try {
             const id = req.params.id;
-            const project = await this.projectsTaskService.getById(id);
+            const project = await this.service.getById(id);
             res.json({ data: project });
         } catch (error) {
             next(error);
@@ -26,12 +26,10 @@ class ProjectController {
 
     async createProject(req, res, next) {
         try {
-            const data = req.body;
-            const project = data.project;
-            const tasks = data.tasks;
+            const project = req.body;
             const files = req.files || null; // Archivos desde multer (memoryStorage)
-            const result = await this.projectsTaskService.create(project, tasks, files);
-            res.status(201).json({ message: 'Project created successfully.', data: result });
+            const result = await this.service.create(project, files);
+            res.status(201).json({ code: 201, message: 'Projecto creado exitosamente.', data: result });
         } catch (error) {
             next(error);
         }
@@ -40,15 +38,13 @@ class ProjectController {
     async updateProject(req, res, next) {
         try {
             const id = req.params.id;
-            const data = req.body;
-            const project = data.project;
-            const tasks = data.tasks;
-            const idTasksDedeleted = data.idTasksDedeleted;
-            const result = await this.projectsTaskService.update(id, project, tasks, idTasksDedeleted);
+            const project = req.body;
+            const files = req.files || null; // Archivos desde multer (memoryStorage)
+            const result = await this.service.update(id, project, files);
             if (result) {
-                return res.json({ message: 'Project actualizado exitosamente.', data: result });
+                return res.json({ code: 200, message: 'Project actualizado exitosamente.', data: result });
             }
-            res.status(404).json({ error: 'El projecto no pudo ser actualizado o no existe.' });
+            res.status(404).json({code: 500, error: 'El projecto no pudo ser actualizado o no existe.' });
         } catch (error) {
             next(error);
         }
@@ -59,9 +55,9 @@ class ProjectController {
             const id = req.params.id;
             const affectedRows = await this.projectsTaskService.delete(id);
             if (affectedRows > 0) {
-                return res.json({ message: 'El proyecto ha sido eliminado exitosamente.' });
+                return res.json({ code: 200, message: 'El proyecto ha sido eliminado exitosamente.' });
             }
-            res.status(404).json({ error: 'El proyecto no pudo ser eliminado o no existe.' });
+            res.status(404).json({ code: 404, error: 'El proyecto no pudo ser eliminado o no existe.' });
         } catch (error) {
             next(error);
         }
