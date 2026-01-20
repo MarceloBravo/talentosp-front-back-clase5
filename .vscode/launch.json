@@ -9,7 +9,10 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/backend/app.js",
-            "cwd": "${workspaceFolder}/backend"
+            "cwd": "${workspaceFolder}/backend",
+            "console": "integratedTerminal",
+            "restart": true,
+            "runtimeArgs": ["--inspect-brk"]
         }
     ]
 }

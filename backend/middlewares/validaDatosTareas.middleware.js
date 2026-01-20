@@ -19,7 +19,13 @@ function validaDatosTareas(req, res, next){
     }
     
     tasks.forEach(t => {
-        validaDatosTareaHelper(t);
+        const errorMessage = validaDatosTareaHelper(t);
+        if(errorMessage){
+            return res.status(400).json({
+                status: 'error',
+                message: errorMessage
+            })
+        }
     })
     
 

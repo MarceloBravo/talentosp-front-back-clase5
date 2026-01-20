@@ -18,11 +18,11 @@ module.exports = (app) => {
     const uploadFileService = new UploadFileService(attachmentsService);
     const taskService = new TaskService(taskModel, uploadFileService, attachmentsService);
     const taskController = new TasksController(taskService);
-
+    
     app.get('/api/tasks',  (req, res, next) => taskController.getAllTasks(req, res, next));
     app.get('/api/tasks/:id', authenticateToken, (req, res, next) => taskController.getTaskById(req, res, next));
     app.get('/api/tasks/project/:projectId', authenticateToken, (req, res, next) => taskController.getAllTasksByProjectId(req, res, next));
-    app.post('/api/tasks', upload.array('attachments', 10), authenticateToken, validaDatosTarea, parseTaskData,  (req, res, next) => taskController.createTask(req, res, next));
+    app.post('/api/tasks/:projectId', upload.array('attachments', 10), authenticateToken, validaDatosTarea, parseTaskData,  (req, res, next) => taskController.createTask(req, res, next));
     app.put('/api/tasks/:id', upload.array('attachments', 10), authenticateToken, validaDatosTarea, parseTaskData, (req, res, next) => taskController.updateTask(req, res, next));
     app.delete('/api/tasks/:id', authenticateToken,(req, res, next) => taskController.deleteTask(req, res, next));
     app.delete('/api/tasks/project/:projectId', authenticateToken,(req, res, next) => taskController.deleteTaskByProjectId(req, res, next));

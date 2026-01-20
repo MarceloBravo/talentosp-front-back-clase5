@@ -42,10 +42,12 @@ class TasksController{
 
     async createTask(req, res, next){
         try {
+            const projectId = req.params.projectId;
+            req.body.project_id = projectId;
             const taskData = req.body;
             const files = req.files || null; // Archivos desde multer (memoryStorage)
             const task = await this.service.create(taskData, files);
-            res.json({data: task});
+            res.json({message: 'Tarea creada correctamente', code:2001, data: task});
         }catch(error){
             console.log(error);
             next(error);

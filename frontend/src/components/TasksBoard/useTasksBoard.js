@@ -15,7 +15,7 @@ export const useTasksBoard = ({tasks = [], filters, onUpdateFilters}) => {
     const translateStatus = (status) => {
         const statusMap = {
             'todo': 'Por hacer',
-            'in_progress': 'En progreso',
+            'in-progress': 'En progreso',
             'completed': 'Completada',
             'cancelled': 'Cancelada',
             'pending': 'Pendiente'
@@ -44,7 +44,7 @@ export const useTasksBoard = ({tasks = [], filters, onUpdateFilters}) => {
     const getStatusClass = (status) => {
         const statusClasses = {
             'todo': styles.statusTodo,
-            'in_progress': styles.statusInProgress,
+            'in-progress': styles.statusInProgress,
             'completed': styles.statusCompleted,
             'cancelled': styles.statusCancelled
         };

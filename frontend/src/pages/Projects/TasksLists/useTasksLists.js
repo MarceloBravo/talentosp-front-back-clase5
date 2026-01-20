@@ -27,7 +27,7 @@ const useTasksLists = () => {
             const deleteTask = async () => {
                 try{
                     await sendRequest(ENDPOINT + `/api/tasks/${deleteId}`, 'DELETE');
-                    sendRequest(ENDPOINT + '/api/tasks', 'GET', null, true);
+                    sendRequest(ENDPOINT + '/api/tasks/project/' + id, 'GET', null, true);
                     showToast('Tarea eliminada correctamente', 'success');
                 } catch (error) {
                     showToast(error.message, 'error');
@@ -55,6 +55,7 @@ const useTasksLists = () => {
     }
 
   return {
+    id,
     isLoading,
     error,
     data,
