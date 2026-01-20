@@ -3,7 +3,7 @@ const validaDatosTareaHelper = require("../helpers/validaDatosTareaHelper");
 
 function validaDatosTarea(req, res, next){
 
-    const projectId = req.params.projectId;
+    const projectId = (req.method === 'POST') ? req.params.projectId : req.body.project_id;
     if(!projectId || isNaN(projectId) || parseInt(projectId) < 0 || projectId - parseInt(projectId) !== 0){
         return res.status(400).json({
             status: 'error',

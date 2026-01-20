@@ -121,14 +121,15 @@ const TasksFormPage = () => {
               <div className="mb-3 row">
                   <label htmlFor="dueDate" className="col-sm-2 col-form-label">Fecha Vencimiento</label>
                   <div className="col-sm-10">
-                      <input 
+                        <input 
                           type="date" 
                           className="form-control" 
                           id="dueDate" 
                           name="due_date" 
                           value={formData.due_date}
+                          min={new Date().toISOString().split('T')[0]}
                           onChange={(e) => handleFieldChange(e) }
-                      />
+                        />
                       {formDataErrors.due_date && <div className="text-danger">{formDataErrors.due_date}</div>}
                   </div>
               </div>

@@ -22,7 +22,7 @@ class TasksController{
             const task = await this.service.getById(id);
             res.json({data: task});
         }catch(error){
-            console.log(error);
+            console.log({message: error.message, code: error.cause, data: []});
             next(error);
         }
     }
@@ -34,7 +34,7 @@ class TasksController{
             const tasks = await this.service.getAllTasksByProjectId(projectId);
             res.json({data: tasks});
         }catch(error){
-            console.log(error);
+            console.log({message: error.message, code: error.cause, data: []});
             next(error);
         }
     }
@@ -49,7 +49,7 @@ class TasksController{
             const task = await this.service.create(taskData, files);
             res.json({message: 'Tarea creada correctamente', code:2001, data: task});
         }catch(error){
-            console.log(error);
+            console.log({message: error.message, code: error.cause, data: []});
             next(error);
         }
     }
@@ -61,9 +61,9 @@ class TasksController{
             const taskData = req.body;
             const files = req.files || null; // Archivos desde multer (memoryStorage)
             const task = await this.service.update(id, taskData, files);
-            res.json({data: task});
+            res.json({message: 'Tarea creada correctamente', code:2001, data: task});
         }catch(error){
-            console.log(error);
+            console.log({message: error.message, code: error.cause, data: []});
             next(error);
         }
     }

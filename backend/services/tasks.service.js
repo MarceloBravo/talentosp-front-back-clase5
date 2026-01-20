@@ -18,7 +18,12 @@ class TaskService{
 
 
     async getById(id){
-        return await this.model.getById(id);
+        const record = await this.model.getById(id);
+        if(!record){
+            throw new Error('La tarea no existe', { cause: 404 });
+        }
+        const attachments = this.attachmentsService ? await this.attachmentsService.getByOwnerId(id) : [];
+        return {...record, attachments};
     }
     
 

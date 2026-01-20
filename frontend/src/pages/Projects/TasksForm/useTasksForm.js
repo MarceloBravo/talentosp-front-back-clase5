@@ -57,13 +57,13 @@ const useTasksForm = () => {
       if(id && id !== 'new'){
         const loadTask = async () => {
           const resp = await httpTask(END_POINT_TASKS + '/' + id, 'GET', null, true);
-          setFormData({
+            setFormData({
             title: resp.data.title,
             description: resp.data.description,  
             status: resp.data.status,
             priority: resp.data.priority,
             assignee_id: resp.data.assignee_id,
-            due_date: resp.data.due_date,
+            due_date: resp.data.due_date ? resp.data.due_date.split('T')[0] : '', 
             project_id: resp.data.project_id || projectId,
             created_at: resp.data.created_at,
             attachments: resp.data.attachments || [],
@@ -135,6 +135,7 @@ const useTasksForm = () => {
     const updateTask = async () => {   
         try {
             const data = new FormData();
+            data.append('project_id', projectId);
             data.append('title', formData.title);
             data.append('description', formData.description);
             data.append('status', formData.status);
@@ -290,15 +291,36 @@ const useTasksForm = () => {
             return false;
         }
 
-        if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
-            alert('Solo se permiten imágenes PNG o JPG');
+        // Tipos MIME permitidos: imágenes y documentos
+        const allowedMimeTypes = [
+            'image/png',
+            'image/jpeg',
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.ms-excel',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'text/csv',
+            'text/plain',
+            'application/zip',
+            'application/x-rar-compressed',
+            'application/vnd.ms-powerpoint',
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+        ];
+
+        // Validar por extensión como fallback
+        const ext = file.name.split('.').pop().toLowerCase();
+        const allowedExtensions = ['png', 'jpg', 'jpeg', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'csv', 'txt', 'zip', 'rar', 'ppt', 'pptx'];
+        
+        if (!allowedMimeTypes.includes(file.type) && !allowedExtensions.includes(ext)) {
+            alert('Tipo de archivo no permitido. Solo se permiten: imágenes (PNG, JPG), documentos (PDF, DOC, DOCX, XLS, XLSX, CSV, TXT, PPT, PPTX) y comprimidos (ZIP, RAR)');
             return false;
         }
 
-        // La compresión se encargará del tamaño, esto es solo una comprobación previa.
+        // La compresión se encargará del tamaño de imágenes, esto es solo una comprobación previa.
         const maxSizeMB = 2;
         if (file.size > maxSizeMB * 1024 * 1024) {
-            alert(`La imagen es demasiado grande. El tamaño máximo es de ${maxSizeMB}MB.`);
+            alert(`El archivo es demasiado grande. El tamaño máximo es de ${maxSizeMB}MB.`);
             return false;
         }
 
