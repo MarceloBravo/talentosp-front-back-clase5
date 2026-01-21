@@ -12,6 +12,10 @@ const useProjectLists = () => {
     const response = useModalStore((state) => state.response);  //Recibe la respuesta seleccionada por el usuario en el cuadro de dialogo Modal
     const showToast = useToastStore((state) => state.showToast);
     const [deleteId, setDeleteId] = useState(null);
+    const breadCrumbs = [
+    { label: 'Home', path: '/' },
+    { label: 'Lista de Proyectos', path: '#' }
+  ];
     
 
     useEffect(()=> {
@@ -56,6 +60,7 @@ const useProjectLists = () => {
     error,
     data,
     searchValue,
+    breadCrumbs,
     setSearchValue,
     handleBtnDeleteClick,
     handleInputSearchKeyDown,

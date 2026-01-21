@@ -4,6 +4,7 @@ import { formatDateDMY } from '../../../utils/dates'
 import useProjectLists from './useProjectLists'
 
 import styles from './ProjectListsPage.module.css'
+import { PageTitle } from '../../../components/PageTitle/PageTitle'
 
 const ProjectListsPage = () => {
     const {
@@ -11,12 +12,12 @@ const ProjectListsPage = () => {
     error,
     data,
     searchValue,
+    breadCrumbs,
     setSearchValue,
     handleBtnDeleteClick,
     handleInputSearchKeyDown,
     handleBtnSearchClick
   } = useProjectLists();
-
 
   return (
     <>
@@ -24,7 +25,7 @@ const ProjectListsPage = () => {
         {error && <div className="alert alert-danger" role="alert">
             {error}
         </div>}
-        <h1>Lista de Proyectos</h1>
+        <PageTitle title="Lista de Proyectos" breadCrumbs={breadCrumbs}/>
         <div className="row">
             <div className="col">
                 <Link to="/projects/new" className="btn btn-primary" type="button">Nuevo</Link>

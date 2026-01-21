@@ -30,6 +30,11 @@ const useProjectForm = () => {
     const ACTIONS = {Crear: 'Crear', Actualizar: 'Actualizar', Eliminar: 'Eliminar'};
     const navigate = useNavigate();
     const ref = useRef(null);
+    const breadCrumbs = [
+    { label: 'Home', path: '/' },
+    { label: 'Lista de Proyectos', path: '/projects' },
+    { label: id ? 'Editar Proyecto' : 'Nuevo Proyecto', path: '#' }
+  ];
 
     useEffect(()=> {
       const loadUsers = () => {
@@ -326,11 +331,12 @@ const useProjectForm = () => {
     formDataErrors,
     isLoadingUsers,
     dataUsers,
+    breadCrumbs,
+    isLoadingProjects,
+    ref,
     handleFieldChange,
     handleBtnSaveClick,
     handleBtnDeleteClick,
-    isLoadingProjects,
-    ref,
     handleFileChange,
     isImage,
     getFileIcon,

@@ -3,33 +3,35 @@ import { SpinnerComponent } from '../../../components/spinner/SpinnerComponent';
 
 import styles from './ProjectFormPage.module.css'
 import useProjectForm from './useProjectForm';
+import { PageTitle } from '../../../components/PageTitle/PageTitle';
 
 const SERVER = process.env.REACT_APP_API_URL;
 
 const ProjectFormPage = () => {
     const {
       id,
-    formData,
-    formDataErrors,
-    isLoadingUsers,
-    dataUsers,
-    isLoadingProjects,
-    ref,
-    handleFieldChange,
-    handleBtnSaveClick,
-    handleBtnDeleteClick,
-    handleFileChange,
-    isImage,
-    getFileIcon,
-    handleDownloadAttachment,
-    removeAttachment
+      formData,
+      formDataErrors,
+      isLoadingUsers,
+      dataUsers,
+      isLoadingProjects,
+      ref,
+      breadCrumbs,
+      handleFieldChange,
+      handleBtnSaveClick,
+      handleBtnDeleteClick,
+      handleFileChange,
+      isImage,
+      getFileIcon,
+      handleDownloadAttachment,
+      removeAttachment
   } = useProjectForm();
-
+  
 
   return (
     <>
     {(isLoadingUsers || isLoadingProjects) && <SpinnerComponent/>}
-      <h1>Formulario de Proyecto</h1>
+      <PageTitle title="Lista de Proyectos" breadCrumbs={breadCrumbs}/>
       <div className="row">
           <div className="rigthDiv col-md-9">
               <div className="mb-3 row">
@@ -156,7 +158,7 @@ const ProjectFormPage = () => {
               </div>
               
               <div className={styles.buttonContainer}>
-                  {id && <Link type="button" className="btn btn-primary" to={`/tasks/lists/${id}?proyecto=${formData.name}`}>Ver tareas</Link>}
+                  {id && <Link type="button" className="btn btn-primary" to={`/projects/${id}/tasks?proyecto=${formData.name}`}>Ver tareas</Link>}
                   <div className={styles.CrudButtons}>
                     <button type="button" className="btn btn-success" onClick={handleBtnSaveClick}>Grabar</button>
                     <button type="button" className="btn btn-danger" onClick={handleBtnDeleteClick}>Eliminar</button>

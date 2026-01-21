@@ -27,12 +27,17 @@ require('./routes/tasks.routes')(app);
 
 // Manejador de errores global
 const errorHandler = require('./middlewares/errorHandler.middleware');
+const e = require('cors');
 app.use(errorHandler);
 
 // Puerto de escucha
 app.set('port', process.env.PORT || 3000);
 
-// Iniciar el servidor
-app.listen(app.get('port'), 'localhost',() => {
-  console.log(`Servidor activo en el puerto ${app.get('port')}`);
-});
+if(!process.env.NODE_ENV){
+  // Iniciar el servidor
+  app.listen(app.get('port'), 'localhost',() => {
+    console.log(`Servidor activo en el puerto ${app.get('port')}`);
+  });
+}
+
+module.exports = app;

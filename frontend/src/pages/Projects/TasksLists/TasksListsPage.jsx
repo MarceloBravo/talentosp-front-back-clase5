@@ -4,6 +4,7 @@ import { formatDateDMY } from '../../../utils/dates'
 import useTasksLists from './useTasksLists'
 
 import styles from './TasksListsPage.module.css'
+import { PageTitle } from '../../../components/PageTitle/PageTitle'
 
 const TasksListsPage = () => {
     const navigate = useNavigate();
@@ -13,12 +14,13 @@ const TasksListsPage = () => {
     error,
     data,
     searchValue,
+    breadCrumbs,
     setSearchValue,
-    searchParams,
     handleBtnDeleteClick,
     handleInputSearchKeyDown,
     handleBtnSearchClick
   } = useTasksLists();
+
 
   return (
     <>
@@ -26,10 +28,10 @@ const TasksListsPage = () => {
         {error && <div className="alert alert-danger" role="alert">
             {error}
         </div>}
-        <h1>Tareas {searchParams.get("proyecto")}</h1>
+        <PageTitle title="Lista de Proyectos" breadCrumbs={breadCrumbs}/>
         <div className="row">
             <div className={styles.TopButtonContainer +" col"}>
-                <Link to={`/tasks/new/${id}`} className="btn btn-primary" type="button">Nueva Tarea</Link>
+                <Link to={`/projects/${id}/tasks/new`} className="btn btn-primary" type="button">Nueva Tarea</Link>
                 <button to="/projects/new" className="btn btn-primary" type="button" onClick={() => navigate('/projects/' + id)}>Volver</button>
             </div>
             <div className={styles.searchContainer + " col"}>
@@ -72,7 +74,7 @@ const TasksListsPage = () => {
                             </td>
                             <td>{formatDateDMY(task.due_date)}</td>
                             <td>
-                                <Link to={`/tasks/${task.project_id}/${task.id}`} className={styles.noBorderButton +" btn"}>🖊️</Link>
+                                <Link to={`/projects/${task.project_id}/tasks/${task.id}`} className={styles.noBorderButton +" btn"}>🖊️</Link>
                                 <button className={styles.noBorderButton + " btn"} onClick={() => handleBtnDeleteClick(task.id)}>✖️</button>
                             </td>
                         </tr>

@@ -15,6 +15,12 @@ const useTasksLists = () => {
     const [deleteId, setDeleteId] = useState(null);
     const id = useParams().id;
     const [searchParams] = useSearchParams();
+    const breadCrumbs = [
+        { label: 'Home', path: '/' },
+        { label: 'Lista de Proyectos', path: '/projects' },
+        { label: 'Editar Proyecto', path: `/projects/${id}` },
+        { label: 'Tareas del Proyecto', path: `#` },
+      ];
    
 
     useEffect(()=> {
@@ -65,8 +71,8 @@ const useTasksLists = () => {
     error,
     data,
     searchValue,
+    breadCrumbs,
     setSearchValue,
-    searchParams,
     handleBtnDeleteClick,
     handleInputSearchKeyDown,
     handleBtnSearchClick

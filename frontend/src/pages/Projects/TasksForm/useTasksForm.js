@@ -44,6 +44,14 @@ const useTasksForm = () => {
     const navigate = useNavigate();
     const ref = useRef(null);
 
+    const breadCrumbs = [
+        { label: 'Home', path: '/' },
+        { label: 'Lista de Proyectos', path: '/projects' },
+        { label: 'Editar Proyecto', path: `/projects/${formData.project_id}` },
+        { label: 'Tareas del Proyecto', path: `/projects/${formData.project_id}/tasks` },
+        { label: id ? 'Editar Tarea' : 'Nueva Tarea', path: '#' }
+      ];
+
     useEffect(()=> {
       const loadUsers = () => {
         httpUsers(END_POINT_USERS, 'GET', null, true);
@@ -377,11 +385,12 @@ const useTasksForm = () => {
     formDataErrors,
     isLoadingUsers,
     dataUsers,
+    breadCrumbs,
+    isLoadingTasks,
+    ref,
     handleFieldChange,
     handleBtnSaveClick,
     handleBtnDeleteClick,
-    isLoadingTasks,
-    ref,
     handleFileChange,
     isImage,
     getFileIcon,

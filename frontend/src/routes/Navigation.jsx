@@ -25,9 +25,9 @@ export const Navigation = () => {
             <Route path="/projects" element={<ProtectedRoutes requiredRol="admin"><ProjectListsPage/></ProtectedRoutes>}/> 
             <Route path="/projects/new" element={<ProtectedRoutes requiredRol="admin"><ProjectFormPage/></ProtectedRoutes>}/> 
             <Route path="/projects/:id" element={<ProtectedRoutes requiredRol="admin"><ProjectFormPage/></ProtectedRoutes>}/> 
-            <Route path="/tasks/lists/:id" element={<ProtectedRoutes requiredRol="admin"><TasksListsPage/></ProtectedRoutes>}/>
-            <Route path="/tasks/new/:projectId" element={<ProtectedRoutes requiredRol="admin"><TasksFormPage/></ProtectedRoutes>}/>
-            <Route path="/tasks/:projectId/:id" element={<ProtectedRoutes requiredRol="admin"><TasksFormPage/></ProtectedRoutes>}/>
+            <Route path="/projects/:id/tasks" element={<ProtectedRoutes requiredRol="admin"><TasksListsPage/></ProtectedRoutes>}/>
+            <Route path="/projects/:projectId/tasks/new" element={<ProtectedRoutes requiredRol="admin"><TasksFormPage/></ProtectedRoutes>}/>
+            <Route path="/projects/:projectId/tasks/:id" element={<ProtectedRoutes requiredRol="admin"><TasksFormPage/></ProtectedRoutes>}/>
         </Routes>
     )
 }
