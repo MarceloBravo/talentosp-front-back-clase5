@@ -28,8 +28,8 @@ class TaskService{
     
 
 
-    async getAllTasksByProjectId(id){
-        return await this.model.getAllTasksByProjectId(id);
+    async getAllTasksByProjectId(id, search = null){
+        return await this.model.getAllTasksByProjectId(id, search);
     }
 
 

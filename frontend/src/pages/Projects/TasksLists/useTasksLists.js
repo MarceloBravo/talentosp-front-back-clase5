@@ -38,6 +38,10 @@ const useTasksLists = () => {
         // eslint-disable-next-line
     },[response])
 
+    useEffect(()=>{
+      console.log('proyecto en page', data);
+    },[data])
+
     const handleBtnDeleteClick = (taskId) => {
         setDeleteId(taskId);
         openModal('Eliminar tarea', '¿Estás seguro de que quieres eliminar esta tarea?', null, 'Eliminar');
@@ -51,7 +55,8 @@ const useTasksLists = () => {
 
     const handleBtnSearchClick = () => {
       const queryParam = searchValue ? `?search=${encodeURIComponent(searchValue)}` : '';
-      sendRequest(ENDPOINT + `/api/tasks${queryParam}`, 'GET', null, true);
+      sendRequest(ENDPOINT + `/api/tasks/project/${id}${queryParam}`, 'GET', null, true);
+      console.log(ENDPOINT + `/api/tasks/project/${id}${queryParam}`);
     }
 
   return {

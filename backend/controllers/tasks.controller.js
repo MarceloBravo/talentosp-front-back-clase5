@@ -30,8 +30,9 @@ class TasksController{
 
     async getAllTasksByProjectId(req, res, next){
         try {
+            const search = req.query.search;
             const {projectId} = req.params;
-            const tasks = await this.service.getAllTasksByProjectId(projectId);
+            const tasks = await this.service.getAllTasksByProjectId(projectId, search);
             res.json({data: tasks});
         }catch(error){
             console.log({message: error.message, code: error.cause, data: []});
@@ -47,7 +48,7 @@ class TasksController{
             const taskData = req.body;
             const files = req.files || null; // Archivos desde multer (memoryStorage)
             const task = await this.service.create(taskData, files);
-            res.json({message: 'Tarea creada correctamente', code:2001, data: task});
+            res.json({message: 'Tarea creada correctamente', code:201, data: task});
         }catch(error){
             console.log({message: error.message, code: error.cause, data: []});
             next(error);
@@ -61,7 +62,7 @@ class TasksController{
             const taskData = req.body;
             const files = req.files || null; // Archivos desde multer (memoryStorage)
             const task = await this.service.update(id, taskData, files);
-            res.json({message: 'Tarea creada correctamente', code:2001, data: task});
+            res.json({message: 'Tarea creada correctamente', code:201, data: task});
         }catch(error){
             console.log({message: error.message, code: error.cause, data: []});
             next(error);
@@ -73,9 +74,10 @@ class TasksController{
         try {
             const {id} = req.params;
             const task = await this.service.delete(id);
-            res.json({data: task});
+            res.json({message: task > 0 ? 'Tarea eliminada correctamente' : 'No se pudo eliminar la tarea', code: task > 0 ? 201 : 404, data: task});
         }catch(error){
-            console.log(error);
+            console.log({message: error.message, code: error.cause, data: []});
+            next();
             next(error);
         }
     }

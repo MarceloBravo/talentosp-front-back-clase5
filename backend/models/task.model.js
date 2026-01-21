@@ -23,12 +23,23 @@ class TaskModel {
         return [];
     }
 
-    async getAllTasksByProjectId(projectId) {
+    async getAllTasksByProjectId(projectId, search = null) {
         let query = `SELECT 
                         t.id, t.project_id, t.title, t.description, t.status, t.priority, t.assignee_id, u.nombre as username, t.due_date, t.created_at 
                         FROM tasks t INNER JOIN users u ON t.assignee_id = u.id 
                         WHERE t.project_id = $1`;
-        const rows = await pool.query(query, [projectId]);
+        const params = [parseInt(projectId)];
+
+        // Convertir search a string y validar que no esté vacío
+        const searchStr = search ? String(search).trim() : '';
+        
+        if(searchStr.length > 0){
+            query += ` AND (t.title ILIKE $2 OR t.description ILIKE $2 OR t.status::text ILIKE $2 OR t.priority::text ILIKE $2 OR u.nombre ILIKE $2 OR t.due_date::text ILIKE $2 OR t.assignee_id::text ILIKE $2)`;
+            params.push(`%${searchStr}%`);
+        }
+        query += ' ORDER BY t.created_at DESC';
+
+        const rows = await pool.query(query, params);
         if(rows?.rows?.length > 0){
             return rows.rows;
         }

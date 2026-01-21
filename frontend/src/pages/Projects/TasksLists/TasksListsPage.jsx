@@ -20,8 +20,6 @@ const TasksListsPage = () => {
     handleBtnSearchClick
   } = useTasksLists();
 
-  console.log('proyecto en page', searchParams.get("proyecto"));
-
   return (
     <>
         {isLoading && <SpinnerComponent/>}
@@ -52,21 +50,36 @@ const TasksListsPage = () => {
                     <th scope="col">Título</th>
                     <th scope="col">Descripción</th>
                     <th scope="col">Asignado a</th>
-                    <th scope="col">Fecha de creación</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha de Vencimiento</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                {data && data?.data?.map((task, index) => 
-                    <tr key={index}>
-                        <td>{task.title}</td>
-                        <td>{task.description}</td>
-                        <td>{task.username}</td>
-                        <td>{formatDateDMY(task.created_at)}</td>
-                        <td>
-                            <Link to={`/tasks/${task.project_id}/${task.id}`} className={styles.noBorderButton +" btn"}>🖊️</Link>
-                            <button className={styles.noBorderButton + " btn"} onClick={() => handleBtnDeleteClick(task.id)}>✖️</button>
-                        </td>
+                {data && Array.isArray(data?.data) && data.data.length > 0 ? (
+                    data.data.map((task, index) => 
+                        <tr key={index}>
+                            <td>{task.title}</td>
+                            <td>{task.description}</td>
+                            <td>{task.username}</td>
+                            <td>
+                                <span className={`${styles.statusBadge} ${styles[`status-${task.status}`]} ${styles[task.due_date < new Date().toISOString().split('T')[0] && task.status !== 'completed' ? 'overdue' : '' ]}`}>
+                                    {task.status === 'todo' && 'Pendiente'}
+                                    {task.status === 'in-progress' && 'En Progreso'}
+                                    {task.status === 'completed' && 'Completada'}
+                                    {task.status === 'cancelled' && 'Cancelada'}
+                                </span>
+                            </td>
+                            <td>{formatDateDMY(task.due_date)}</td>
+                            <td>
+                                <Link to={`/tasks/${task.project_id}/${task.id}`} className={styles.noBorderButton +" btn"}>🖊️</Link>
+                                <button className={styles.noBorderButton + " btn"} onClick={() => handleBtnDeleteClick(task.id)}>✖️</button>
+                            </td>
+                        </tr>
+                    )
+                ) : (
+                    <tr>
+                        <td colSpan="6" className="text-center">No hay tareas disponibles</td>
                     </tr>
                 )}
             </tbody>
