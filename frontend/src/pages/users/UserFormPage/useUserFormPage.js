@@ -38,6 +38,11 @@ export const useUserFormPage = () => {
     });
     const ref = useRef(null);
     const ACTIONS = {Crear: 'Crear', Actualizar: 'Actualizar', Eliminar: 'Eliminar'};
+    const breadCrumbs = [
+        { label: 'Home', path: '/' },
+        { label: 'Lista de Usuarios', path: '/users' },
+        { label: formData.id ? 'Editar Usuario' : 'Nuevo Usuario', path: '#' }
+    ];
     const errMessages = {
             nombre: (value) => {
                 if (!value) return 'El nombre es un campo requerido.';
@@ -268,11 +273,12 @@ export const useUserFormPage = () => {
         isLoading,
         formData,
         formDataErros,
+        breadCrumbs,
+        ref,
         handleFieldChange,
         handleLoadAvatarClick,
         handleFileChange,
         handleBtnSaveClick,
-        handleBtnDeleteClick,
-        ref
+        handleBtnDeleteClick
     }
 }

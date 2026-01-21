@@ -17,6 +17,10 @@ export const useUserListPage = () => {
     const openModal = useModalStore((state) => state.openModal);
     const response = useModalStore((state) => state.response);  //Recibe la respuesta seleccionada por el usuario en el cuadro de dialogo Modal
     const showToast = useToastStore((state) => state.showToast);
+    const breadCrumbs = [
+        { label: 'Home', path: '/' },
+        { label: 'Lista de Usuarios', path: '#' }
+    ];
 
 
 
@@ -74,6 +78,7 @@ export const useUserListPage = () => {
         error,
         users,
         searchValue,
+        breadCrumbs,
         setSearchValue,
         handleInputSearchKeyDown,
         handleBtnSearchClick,

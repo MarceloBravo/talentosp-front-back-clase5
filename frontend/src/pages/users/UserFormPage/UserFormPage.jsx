@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useUserFormPage } from './useUserFormPage';
 
 import styles from './UserFormPage.module.css'
+import { PageTitle } from '../../../components/PageTitle/PageTitle';
 
 const DEF_AVATAR = process.env.REACT_APP_DEFAULT_AVATAR;
 
@@ -9,19 +10,19 @@ export const UserFormPage = () => {
     const {
         formData,
         formDataErros,
+        breadCrumbs,
+        ref,
         handleFieldChange,
         handleLoadAvatarClick,
         handleFileChange,
         handleBtnSaveClick,
         handleBtnDeleteClick,
-        ref
     } = useUserFormPage();
-
     
 
     return (
         <>
-            <h1>Formulario de Usuarios</h1>
+            <PageTitle title="Lista de Proyectos" breadCrumbs={breadCrumbs}/>
             <div className="row">
                 <div className={styles.leftDiv + " col-md-3"}>
                     <img src={formData.file_url || DEF_AVATAR} alt='Avatar' className={styles.imgAvatar}/>

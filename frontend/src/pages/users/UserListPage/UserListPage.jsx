@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { useUserListPage } from "./useUsersListPage";
 
 import styles from './UserListPage.module.css';
+import { PageTitle } from "../../../components/PageTitle/PageTitle";
 
 export const UserListPage = () => {
     const {
@@ -11,6 +12,7 @@ export const UserListPage = () => {
         error,
         users,
         searchValue,
+        breadCrumbs,
         setSearchValue,
         handleInputSearchKeyDown,
         handleBtnSearchClick,
@@ -24,7 +26,7 @@ export const UserListPage = () => {
             {error && <div className="alert alert-danger" role="alert">
                 {error}
             </div>}
-            <h1>Lista de Usuarios</h1>
+            <PageTitle title="Lista de Proyectos" breadCrumbs={breadCrumbs}/>
             <div className="row">
                 <div className="col">
                     <Link to="/users/new" className="btn btn-primary" type="button">Nuevo</Link>
