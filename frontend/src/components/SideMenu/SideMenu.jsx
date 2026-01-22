@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import styles from './SideMenu.module.css';
 
 export const SideMenu = () => {
-    const { userSession, logout } = useAuth();
+    const { userSession } = useAuth();
     const [ isAdmin, setIsAdmin ] = useState(false);
 
     useEffect(()=>{

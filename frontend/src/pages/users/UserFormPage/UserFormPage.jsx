@@ -21,7 +21,7 @@ export const UserFormPage = () => {
     
 
     return (
-        <>
+        <div className="page-container">
             <PageTitle title="Listado de usuarios" breadCrumbs={breadCrumbs}/>
             <div className="row">
                 <div className={styles.leftDiv + " col-md-3"}>
@@ -155,6 +155,6 @@ export const UserFormPage = () => {
                 </div>
             </div>
             
-        </>
+        </div>
     )
 }

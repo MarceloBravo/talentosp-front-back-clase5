@@ -1,29 +1,98 @@
 .appHeader{
     position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    background: #314a94;
-    padding: 10px;
-    z-index: 10;
+    background: #549bb8;;
+    padding: 10px 20px;
+    z-index: 100;
+    box-sizing: border-box;
+    height: 60px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .appTitle{
     color: white;
     font-size: 1.5rem;
+    margin: 0;
+    flex-shrink: 0;
 }   
 
 .logoutButton,
-.loginButton{
-    background: #6583c2;
+.loginButton{    
     color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+    transition: background-color 0.2s ease-in-out;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.logoutButton {
+    /*background: #549bb8;*/
+    cursor: pointer;
+}
+
 
 .logoutButton:hover,
 .loginButton:hover{
-    border: solid 1px white;
+    background: #3885a4;
     color: white;
+    border: solid white thin
+}
+
+.disabledButton {
+    background: #cccccc;
+    color: #666666;
+    cursor: default;
+    border: none;
+}
+
+/* Responsivo: tablets y dispositivos medianos */
+@media (max-width: 768px) {
+    .appHeader {
+        padding: 10px 15px;
+        height: auto;
+        min-height: 50px;
+    }
+
+    .appTitle {
+        font-size: 1.2rem;
+    }
+
+    .logoutButton,
+    .loginButton {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+    }
+}
+
+/* Responsivo: móviles */
+@media (max-width: 480px) {
+    .appHeader {
+        padding: 8px 10px;
+        height: auto;
+        min-height: 45px;
+    }
+
+    .appTitle {
+        font-size: 1rem;
+    }
+
+    .logoutButton,
+    .loginButton {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
 }
 

@@ -21,12 +21,12 @@ export const UserListPage = () => {
 
 
     return (
-        <>
+        <div className="page-container">
             {isLoading && <SpinnerComponent/>}
             {error && <div className="alert alert-danger" role="alert">
                 {error}
             </div>}
-            <PageTitle title="Lista de Proyectos" breadCrumbs={breadCrumbs}/>
+            <PageTitle title="Listado de usuarios" breadCrumbs={breadCrumbs}/>
             <div className="row">
                 <div className="col">
                     <Link to="/users/new" className="btn btn-primary" type="button">Nuevo</Link>
@@ -70,6 +70,6 @@ export const UserListPage = () => {
                     )}
                 </tbody>
             </table>
-        </>
+        </div>
     )
 }

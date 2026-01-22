@@ -20,7 +20,7 @@ const ProjectListsPage = () => {
   } = useProjectLists();
 
   return (
-    <>
+    <div className="page-container">
         {isLoading && <SpinnerComponent/>}
         {error && <div className="alert alert-danger" role="alert">
             {error}
@@ -67,7 +67,7 @@ const ProjectListsPage = () => {
                 )}
             </tbody>
         </table>
-    </>
+    </div>
   )
 }
 

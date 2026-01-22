@@ -2,10 +2,11 @@
     display: flex;
     flex-direction: column;
     width: 200px;
-    height: 100vh;
-    background-color: #f8f9fa;
+    min-height: fit-content;
+    background-color: #549bb8;;
     padding: 20px 12px 20px 0px;
     border-right: 1px solid #dee2e6;
+    flex-shrink: 0;
 }
 
 .sideMenu ul {
@@ -22,7 +23,7 @@
 .link {
     text-decoration: none;
     color: #343a40;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
     display: block;
     padding: 12px 6px;
@@ -33,6 +34,8 @@
     background: none;
     border: none;
     cursor: pointer;
+    box-sizing: border-box;
+    color: white;
 }
 
 .logoutButton:hover, 
@@ -42,7 +45,7 @@
 }
 
 .link.active {
-    background-color: #007bff;
+    background-color: #3885a4;
     color: white;
     font-weight: 600;
 }
@@ -50,4 +53,46 @@
 .logoutButton {
     /* Inherits from .link, can add specific overrides here */
     color: #343a40;
+}
+
+/* Responsivo: tablets */
+@media (max-width: 768px) {
+    .sideMenu {
+        width: 160px;
+        padding: 15px 10px 15px 0px;
+    }
+
+    .link {
+        font-size: 0.95rem;
+        padding: 10px 5px;
+    }
+}
+
+/* Responsivo: móviles */
+@media (max-width: 480px) {
+    .sideMenu {
+        width: 100%;
+        padding: 10px 0;
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+        min-height: auto;
+    }
+
+    .sideMenu ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .sideMenu li {
+        margin-bottom: 0;
+        flex: 1;
+        min-width: 100px;
+    }
+
+    .link {
+        font-size: 0.85rem;
+        padding: 8px 4px;
+        text-align: center;
+    }
 }

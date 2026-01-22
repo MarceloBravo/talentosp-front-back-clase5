@@ -1,3 +1,25 @@
-.navigationContainer{
-    width: -webkit-fill-available;
+.navigationContainer {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+/* Responsivo: tablets */
+@media (max-width: 768px) {
+    .navigationContainer {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+/* Responsivo: móviles */
+@media (max-width: 480px) {
+    .navigationContainer {
+        width: 100%;
+        padding: 0;
+        font-size: 0.9rem;
+    }
 }

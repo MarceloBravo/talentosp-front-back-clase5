@@ -29,9 +29,9 @@ const TasksFormPage = () => {
 
 
   return (
-    <>
+    <div className="page-container">
     {(isLoadingUsers || isLoadingTasks) && <SpinnerComponent/>}
-      <PageTitle title="Formulario de tareas" breadCrumbs={breadCrumbs} project={state?.name}/>
+      <PageTitle title="Mantenedor de tareas" breadCrumbs={breadCrumbs} project={state?.name}/>
       <div className="row">
           <div className="rigthDiv col-md-9">
               <div className="mb-3 row">
@@ -215,7 +215,7 @@ const TasksFormPage = () => {
           </div>
       </div>
       
-  </>
+    </div>
   )
 }
 

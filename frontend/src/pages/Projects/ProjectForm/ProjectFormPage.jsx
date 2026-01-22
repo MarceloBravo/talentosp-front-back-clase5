@@ -29,9 +29,9 @@ const ProjectFormPage = () => {
   
 
   return (
-    <>
+    <div className="page-container">
     {(isLoadingUsers || isLoadingProjects) && <SpinnerComponent/>}
-      <PageTitle title="Lista de Proyectos" breadCrumbs={breadCrumbs}/>
+      <PageTitle title="Mantenedor de Proyectos" breadCrumbs={breadCrumbs}/>
       <div className="row">
           <div className="rigthDiv col-md-9">
               <div className="mb-3 row">
@@ -168,7 +168,7 @@ const ProjectFormPage = () => {
           </div>
       </div>
       
-  </>
+    </div>
   )
 }
 
