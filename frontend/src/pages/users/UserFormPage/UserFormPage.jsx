@@ -22,7 +22,7 @@ export const UserFormPage = () => {
 
     return (
         <>
-            <PageTitle title="Lista de Proyectos" breadCrumbs={breadCrumbs}/>
+            <PageTitle title="Listado de usuarios" breadCrumbs={breadCrumbs}/>
             <div className="row">
                 <div className={styles.leftDiv + " col-md-3"}>
                     <img src={formData.file_url || DEF_AVATAR} alt='Avatar' className={styles.imgAvatar}/>

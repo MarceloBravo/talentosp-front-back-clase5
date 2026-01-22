@@ -1,5 +1,5 @@
 import { SpinnerComponent } from '../../../components/spinner/SpinnerComponent'
-import { Link, useNavigate } from 'react-router'
+import { Link, useLocation, useNavigate } from 'react-router'
 import { formatDateDMY } from '../../../utils/dates'
 import useTasksLists from './useTasksLists'
 
@@ -8,6 +8,7 @@ import { PageTitle } from '../../../components/PageTitle/PageTitle'
 
 const TasksListsPage = () => {
     const navigate = useNavigate();
+    const { state } = useLocation();
     const {
     id,
     isLoading,
@@ -28,11 +29,11 @@ const TasksListsPage = () => {
         {error && <div className="alert alert-danger" role="alert">
             {error}
         </div>}
-        <PageTitle title="Lista de Proyectos" breadCrumbs={breadCrumbs}/>
+        <PageTitle title={"Listado de tareas"} breadCrumbs={breadCrumbs} project={state?.name}/>
         <div className="row">
             <div className={styles.TopButtonContainer +" col"}>
                 <Link to={`/projects/${id}/tasks/new`} className="btn btn-primary" type="button">Nueva Tarea</Link>
-                <button to="/projects/new" className="btn btn-primary" type="button" onClick={() => navigate('/projects/' + id)}>Volver</button>
+                <button to="/projects/new" className="btn btn-primary" type="button" onClick={() => navigate('/projects/' + id)} state={state}>Volver</button>
             </div>
             <div className={styles.searchContainer + " col"}>
                 <input 
@@ -74,7 +75,7 @@ const TasksListsPage = () => {
                             </td>
                             <td>{formatDateDMY(task.due_date)}</td>
                             <td>
-                                <Link to={`/projects/${task.project_id}/tasks/${task.id}`} className={styles.noBorderButton +" btn"}>🖊️</Link>
+                                <Link to={`/projects/${task.project_id}/tasks/${task.id}`} className={styles.noBorderButton +" btn"} state={state}>🖊️</Link>
                                 <button className={styles.noBorderButton + " btn"} onClick={() => handleBtnDeleteClick(task.id)}>✖️</button>
                             </td>
                         </tr>

@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { SpinnerComponent } from '../../../components/spinner/SpinnerComponent';
 
 import styles from './TasksFormPage.module.css'
@@ -8,6 +8,7 @@ import { PageTitle } from '../../../components/PageTitle/PageTitle';
 const SERVER = process.env.REACT_APP_API_URL;
 
 const TasksFormPage = () => {
+    const { state } = useLocation();
     const {
     formData,
     formDataErrors,
@@ -30,7 +31,7 @@ const TasksFormPage = () => {
   return (
     <>
     {(isLoadingUsers || isLoadingTasks) && <SpinnerComponent/>}
-      <PageTitle title="Lista de Proyectos" breadCrumbs={breadCrumbs}/>
+      <PageTitle title="Formulario de tareas" breadCrumbs={breadCrumbs} project={state?.name}/>
       <div className="row">
           <div className="rigthDiv col-md-9">
               <div className="mb-3 row">
@@ -209,7 +210,7 @@ const TasksFormPage = () => {
               <div className={styles.CrudButtons}>
                 <button type="button" className="btn btn-success" onClick={handleBtnSaveClick}>Grabar</button>
                 <button type="button" className="btn btn-danger" onClick={handleBtnDeleteClick}>Eliminar</button>
-                <Link type="button" className="btn btn-primary" to={formData.project_id ? `/projects/${formData.project_id}/tasks` : "/projects"}>Cancelar</Link>
+                <Link type="button" className="btn btn-primary" to={formData.project_id ? `/projects/${formData.project_id}/tasks` : "/projects"} state={state}>Cancelar</Link>
               </div>
           </div>
       </div>

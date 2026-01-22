@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useHttp } from '../../../hooks/useHttp'
 import useModalStore from '../../../store/useModalStore';
 import useToastStore from '../../../store/useToastStore';
-import { useParams, useSearchParams } from 'react-router';
+import { useLocation, useParams, useSearchParams } from 'react-router';
 
 const ENDPOINT = process.env.REACT_APP_API_URL;
 

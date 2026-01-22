@@ -158,7 +158,7 @@ const ProjectFormPage = () => {
               </div>
               
               <div className={styles.buttonContainer}>
-                  {id && <Link type="button" className="btn btn-primary" to={`/projects/${id}/tasks?proyecto=${formData.name}`}>Ver tareas</Link>}
+                  {id && <Link type="button" className="btn btn-primary" to={`/projects/${id}/tasks`} state={formData}>Ver tareas</Link>}
                   <div className={styles.CrudButtons}>
                     <button type="button" className="btn btn-success" onClick={handleBtnSaveClick}>Grabar</button>
                     <button type="button" className="btn btn-danger" onClick={handleBtnDeleteClick}>Eliminar</button>

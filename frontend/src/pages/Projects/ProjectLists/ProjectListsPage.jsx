@@ -25,7 +25,7 @@ const ProjectListsPage = () => {
         {error && <div className="alert alert-danger" role="alert">
             {error}
         </div>}
-        <PageTitle title="Lista de Proyectos" breadCrumbs={breadCrumbs}/>
+        <PageTitle title="Listado de Proyectos" breadCrumbs={breadCrumbs}/>
         <div className="row">
             <div className="col">
                 <Link to="/projects/new" className="btn btn-primary" type="button">Nuevo</Link>
