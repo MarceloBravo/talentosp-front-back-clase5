@@ -10,10 +10,12 @@ import ProjectListsPage from '../pages/Projects/ProjectLists/ProjectListsPage'
 import ProjectFormPage from '../pages/Projects/ProjectForm/ProjectFormPage'
 import TasksListsPage from '../pages/Projects/TasksLists/TasksListsPage'
 import TasksFormPage from '../pages/Projects/TasksForm/TasksFormPage'
+import styles from './Navigation.module.css';
 
 export const Navigation = () => {
 
     return (
+        <div className={styles.navigationContainer}>
         <Routes>
             <Route path="/" element={<Dashboard/>}/>
             <Route path="/login" element={<LoginPage/>}/>
@@ -29,5 +31,6 @@ export const Navigation = () => {
             <Route path="/projects/:projectId/tasks/new" element={<ProtectedRoutes requiredRol="admin"><TasksFormPage/></ProtectedRoutes>}/>
             <Route path="/projects/:projectId/tasks/:id" element={<ProtectedRoutes requiredRol="admin"><TasksFormPage/></ProtectedRoutes>}/>
         </Routes>
+        </div>
     )
 }

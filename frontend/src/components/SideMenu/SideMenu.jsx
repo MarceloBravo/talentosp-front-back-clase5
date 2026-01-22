@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router';
 import { useAuth } from '../../context/Auth/useAuth';
-import styles from './SideMenu.module.css';
 import { useEffect, useState } from 'react';
+
+import styles from './SideMenu.module.css';
 
 export const SideMenu = () => {
     const { userSession, logout } = useAuth();
@@ -10,11 +11,11 @@ export const SideMenu = () => {
     useEffect(()=>{
         setIsAdmin(userSession?.user?.role === 'admin');
     },[userSession])
-
+    /*
     const handleLogout = () => {
         logout();
     };
-
+    */
     return (
         <nav className={styles.sideMenu}>
             <ul>
@@ -37,6 +38,7 @@ export const SideMenu = () => {
                     </NavLink>
                 </li>
                 )}
+                {/*
                 <li>
                     {userSession.isLoggedIn ? (
                         <button onClick={handleLogout} className={`${styles.link} ${styles.logoutButton}`}>
@@ -48,6 +50,7 @@ export const SideMenu = () => {
                         </NavLink>
                     )}
                 </li>
+                */}
             </ul>
         </nav>
     );

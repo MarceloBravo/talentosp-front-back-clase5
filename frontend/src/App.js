@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router';
 import './App.css';
 import { Modal } from './components/Modal/Modal';
 import Toast from './components/Toast/Toast';
+import { HeaderComponent } from './components/Header/HeaderComponent';
 
 function App() {
   return (    
@@ -14,8 +15,9 @@ function App() {
         <Modal/>    
         <Toast/>
         <div className="appContainer">
-          <SideMenu />
+          <HeaderComponent />
           <main className="mainContent">
+            <SideMenu />
             <Navigation />
           </main>
         </div>
