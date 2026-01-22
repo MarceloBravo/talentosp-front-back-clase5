@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useHttp } from '../../../hooks/useHttp'
 import useModalStore from '../../../store/useModalStore';
 import useToastStore from '../../../store/useToastStore';
-import { useLocation, useParams, useSearchParams } from 'react-router';
+import { useParams } from 'react-router';
 
 const ENDPOINT = process.env.REACT_APP_API_URL;
 
@@ -14,7 +14,6 @@ const useTasksLists = () => {
     const showToast = useToastStore((state) => state.showToast);
     const [deleteId, setDeleteId] = useState(null);
     const id = useParams().id;
-    const [searchParams] = useSearchParams();
     const breadCrumbs = [
         { label: 'Home', path: '/' },
         { label: 'Lista de Proyectos', path: '/projects' },
