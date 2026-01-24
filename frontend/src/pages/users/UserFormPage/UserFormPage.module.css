@@ -4,9 +4,10 @@
     align-items: center;
     
     .imgAvatar{
-        width: -webkit-fill-available;
+        max-width: -webkit-fill-available;
         border: solid thin #c8c7c7c9;
         margin-bottom: 10px;
+        max-height: 290px;
     }
 }
 

@@ -33,38 +33,67 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-     const originalRequest = error.config;
+    const originalRequest = error.config;
 
-    // Si el access token expiró
+    // Si el access token expiró (401) y no es un reintento
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
+      
       try {
         const refreshToken = getRefreshTokenFromCookie();
-        // Pedir nuevo access token usando refresh token (cookie segura)
-        const { data } = await axiosInstance.post(`/auth/refresh`,
-          {
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ refreshToken })
+        
+        // Si no hay refresh token disponible, cerrar sesión
+        if (!refreshToken) {
+          console.warn("No hay refresh token disponible. Cerrando sesión...");
+          if (store && store.logout) {
+            await store.logout();
           }
-        );
-        saveRefreshToken(data.refresh_token);
-        if (store && store.setUserSession) {
-          console.log("Actualizando sesión en memoria con nuevo token...");
-          store.setUserSession(prev => ({
-            ...prev,
-            accessToken: data.access_token,
-          }));
+          window.location.href = "/login";
+          return Promise.reject(error);
         }
 
-        // Reintentar la request original con el nuevo token
-        originalRequest.headers.Authorization = `Bearer ${data.access_token}`;
-        return axiosInstance(originalRequest);
+        console.log("Access token expirado. Intentando refrescar con refresh token...");
+        
+        // Pedir nuevo access token usando refresh token
+        const { data } = await axiosInstance.post('/api/refreshToken', {
+          refreshToken: refreshToken
+        });
+
+        // Validar que la respuesta tenga los tokens necesarios
+        if (data?.data?.access_token && data?.data?.refresh_token) {
+          saveRefreshToken(data.data.refresh_token);
+          
+          if (store && store.setUserSession) {
+            console.log("Sesión refrescada exitosamente. Actualizando token en memoria...");
+            store.setUserSession({
+              ...store.userSession,
+              accessToken: data.data.access_token,
+              isLoggedIn: true,
+            });
+          }
+
+          // Reintentar la request original con el nuevo token
+          originalRequest.headers.Authorization = `Bearer ${data.data.access_token}`;
+          return axiosInstance(originalRequest);
+        } else {
+          console.error("Respuesta de refresh inválida:", data);
+          if (store && store.logout) {
+            await store.logout();
+          }
+          window.location.href = "/login";
+          return Promise.reject(error);
+        }
       } catch (err) {
-        await store.logout();
+        console.error("Error al refrescar el token:", err.message);
+        if (store && store.logout) {
+          await store.logout();
+        }
         // Si falla el refresh → redirigir a login
         window.location.href = "/login";
+        return Promise.reject(err);
       }
     }
+    
     return Promise.reject(error);
   }
 );

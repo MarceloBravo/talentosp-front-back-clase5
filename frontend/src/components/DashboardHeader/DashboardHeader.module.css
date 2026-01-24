@@ -1,8 +1,8 @@
 .headerContainer{
     display: flex;
     justify-content: space-around;
-    background: #c9c9c8;
+    background: #9af47f;
     padding: 1em;
-    color: #634a0b;
+    color: #198754;
     font-family: sans-serif;
 }

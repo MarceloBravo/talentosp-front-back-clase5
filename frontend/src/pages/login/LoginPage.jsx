@@ -52,7 +52,7 @@ export const LoginPage = () => {
           <button type="submit" className={styles.button}>Iniciar Sesión</button>
           <p className="rememberMe">
             <input type="checkbox" id="rememberMe" bname="rememberMe" checked={formLogin.rememberMe} onChange={handleRememberMeClick}/>
-            <label htmlFor="rememberMe">Recordarme</label>
+            <label htmlFor="rememberMe"> Mantener sesión iniciada</label>
           </p>
           <p className={styles.linkText}>
             ¿No tienes una cuenta? <Link to="/register">Regístrate aquí</Link>

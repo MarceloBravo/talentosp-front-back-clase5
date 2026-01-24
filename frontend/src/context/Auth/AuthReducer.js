@@ -6,6 +6,7 @@ export const initialState = {
         isLoggedIn: false,
         user: null,
         accessToken: null,
+        remember: false,
     }
 };
 
@@ -39,6 +40,7 @@ export const AuthReducer = (state, action) => {
                     isLoggedIn: true,
                     user: action.payload.user,
                     accessToken: action.payload.accessToken,
+                    remember: action.payload.remember,
                 },
             };
 
@@ -56,6 +58,7 @@ export const AuthReducer = (state, action) => {
                     isLoggedIn: false,
                     user: null,
                     accessToken: null,
+                    remember: false,
                 },
             };
 
@@ -68,6 +71,7 @@ export const AuthReducer = (state, action) => {
                     isLoggedIn: true,
                     user: action.payload.user,
                     accessToken: action.payload.accessToken,
+                    remember: action.payload.remember,
                 },
             };
 

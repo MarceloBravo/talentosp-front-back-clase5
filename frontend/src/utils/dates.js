@@ -18,3 +18,16 @@ export const formatDateDMY = (dateString) => {
     });
 
 }
+
+export const segundosAHMS = (segundos) => {
+  const horas = Math.floor(segundos / 3600);
+  const minutos = Math.floor((segundos % 3600) / 60);
+  const segundosRestantes = segundos % 60;
+
+  // Opcional: añadir ceros a la izquierda
+  const h = String(horas).padStart(2, '0');
+  const m = String(minutos).padStart(2, '0');
+  const s = String(segundosRestantes).padStart(2, '0');
+
+  return `${h}:${m}:${s}`;
+}
