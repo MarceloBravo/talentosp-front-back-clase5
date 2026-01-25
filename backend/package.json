@@ -6,13 +6,13 @@
     "test": "echo 'Error: no test specified' && exit 1",
     "start:dev": "nodemon --watch '**/*.ts' --exec ts-node app.ts",
     "start": "node app.js"
-    
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
