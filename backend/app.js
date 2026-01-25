@@ -6,8 +6,8 @@ const bodyParser = require('body-parser');
 const app = express();
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL, // Solo permitir este origen
-  credentials: true, // Permitir cookies/autenticación
+  origin: process.env.FRONTEND_URL || '*', // Permitir este origen o cualquiera si no está configurado
+  credentials: process.env.FRONTEND_URL ? true : false, // Permitir cookies solo si hay FRONTEND_URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
   allowedHeaders: ['Content-Type', 'Authorization'] // Headers permitidos
 }));
@@ -25,6 +25,15 @@ require('./routes/users.routes')(app);
 require('./routes/projects.routes')(app);
 require('./routes/tasks.routes')(app);
 
+// Manejador de rutas no encontradas
+app.use((req, res) => {
+  res.status(404).json({
+    status: 'error',
+    statusCode: 404,
+    message: 'Ruta no encontrada'
+  });
+});
+
 // Manejador de errores global
 const errorHandler = require('./middlewares/errorHandler.middleware');
 const e = require('cors');
@@ -34,9 +43,10 @@ app.use(errorHandler);
 app.set('port', process.env.PORT || 3000);
 
 if(!process.env.NODE_ENV){
-  // Iniciar el servidor
-  app.listen(app.get('port'), 'localhost',() => {
-    console.log(`Servidor activo en el puerto ${app.get('port')}`);
+  // Iniciar el servidor - escuchar en 0.0.0.0 para aceptar conexiones externas (cloud deployment)
+  app.listen(app.get('port'), '0.0.0.0',() => {
+    console.log(`Servidor activo en http://0.0.0.0:${app.get('port')}`);
+    console.log(`FRONTEND_URL configurada como: ${process.env.FRONTEND_URL || 'No configurada - usando wildcard (*)'}`);
   });
 }
 
