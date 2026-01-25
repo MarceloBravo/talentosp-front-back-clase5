@@ -42,7 +42,7 @@ app.use(errorHandler);
 // Puerto de escucha
 app.set('port', process.env.PORT || 3000);
 
-//if(!process.env.NODE_ENV){
+//if(!process.env.NODE_ENV){  // Descomentar al subir a producción
   // Iniciar el servidor - escuchar en 0.0.0.0 para aceptar conexiones externas (cloud deployment)
   app.listen(app.get('port'), '0.0.0.0',() => {
     console.log(`Servidor activo en http://0.0.0.0:${app.get('port')}`);

@@ -8,7 +8,7 @@ const dbConfig = {
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
-    ssl: false, // Important for local development without SSL
+    ssl: true, // Important for local development without SSL
 };
 
 const pool = new Pool(dbConfig);
