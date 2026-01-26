@@ -6,14 +6,14 @@ export const useLoginPage = () => {
   const [ formLogin, setFormLogin ] = useState({email: '', password: '', rememberMe: false});
   const [ errorsLogin, setErrorsLogin ] = useState({email: '', password: ''});
   const { login, isLoading, error, userSession } = useAuth();
+  const { isLoggedIn } = userSession;
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (userSession.isLoggedIn) {
-      console.log(userSession)
+    if (isLoggedIn) {
       navigate('/');
     }
-  }, [userSession.isLoggedIn, navigate]);
+  }, [isLoggedIn, navigate]);
 
   const handleInputChange = (e) => {
     if(e.target.value.trim().length === 0){
