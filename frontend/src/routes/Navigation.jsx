@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router'
 import { ProtectedRoutes } from './ProtectedRoutes'
-import { LoginPage } from '../pages/login/LoginPage.jsx'
+import { LoginPage } from '../pages/Login/LoginPage'
 import { Dashboard } from '../pages/Dashboard/Dashboard'
 import { RegisterPage } from '../pages/Register/RegisterPage'
 import { UserListPage } from '../pages/users/UserListPage/UserListPage'
