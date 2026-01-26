@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/talentosp-front-back-clase5/static/css/main.98fa9afb.css",
+    "main.js": "/talentosp-front-back-clase5/static/js/main.8bcf34bb.js",
+    "static/js/453.20359781.chunk.js": "/talentosp-front-back-clase5/static/js/453.20359781.chunk.js",
+    "index.html": "/talentosp-front-back-clase5/index.html",
+    "main.98fa9afb.css.map": "/talentosp-front-back-clase5/static/css/main.98fa9afb.css.map",
+    "main.8bcf34bb.js.map": "/talentosp-front-back-clase5/static/js/main.8bcf34bb.js.map",
+    "453.20359781.chunk.js.map": "/talentosp-front-back-clase5/static/js/453.20359781.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.98fa9afb.css",
+    "static/js/main.8bcf34bb.js"
+  ]
+}
