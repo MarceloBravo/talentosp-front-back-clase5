@@ -1,7 +1,39 @@
+import { useMemo } from 'react';
 import styles from './TasksBoard.module.css';
 
-export const useTasksBoard = ({tasks = [], filters, onUpdateFilters}) => {
+export const useTasksBoard = ({ tasks = [] }) => {
     
+    const isOverdue = (dueDate, status) => {
+        if (!dueDate || status === 'completed') return false;
+        return new Date(dueDate) < new Date();
+    };
+
+    const taskStatusCounts = useMemo(() => {
+        let completed = 0;
+        let overdue = 0;
+        let pending = 0;
+
+        tasks.forEach(task => {
+            if (task.status === 'completed') {
+                completed++;
+            } else if (isOverdue(task.due_date, task.status)) {
+                overdue++;
+            } else {
+                pending++;
+            }
+        });
+
+        return { completed, overdue, pending };
+    }, [tasks]);
+
+    const chartData = [
+        { name: 'Pendientes', value: taskStatusCounts.pending, fill: '#3498db' },
+        { name: 'Atrasadas', value: taskStatusCounts.overdue, fill: '#e74c3c' },
+        { name: 'Completadas', value: taskStatusCounts.completed, fill: '#2ecc71' }
+    ].filter(item => item.value > 0);
+
+    const totalTasks = tasks.length;
+
     const formatDate = (dateString) => {
         if (!dateString) return 'Sin fecha';
         const date = new Date(dateString);
@@ -51,23 +83,9 @@ export const useTasksBoard = ({tasks = [], filters, onUpdateFilters}) => {
         return statusClasses[status] || '';
     };
 
-    const isOverdue = (dueDate) => {
-        if (!dueDate) return false;
-        return new Date(dueDate) < new Date();
-    };
-
-    if (!tasks || tasks.length === 0) {
-        return (
-            <div className={styles.container}>
-                <h2 className={styles.title}>Tareas</h2>
-                <div className={styles.emptyState}>
-                    <p>No hay tareas disponibles</p>
-                </div>
-            </div>
-        );
-    }
-
     return {
+        chartData,
+        totalTasks,
         formatDate,
         translateStatus,
         translatePriority,
