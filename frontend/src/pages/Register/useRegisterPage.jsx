@@ -23,7 +23,7 @@ export const useRegisterPage = () => {
 
     useEffect(()=>{
         if(data){
-            showToast(data.mensaje,'danger');
+            showToast(data.mensaje,'success');
             navigate('/login');
         }
     },[data, navigate, showToast]);
