@@ -1,6 +1,6 @@
 import axiosInstance from '../axios/axiosInstance';
 
-const END_POINT = process.env.REACT_APP_API_URL || 'https://taskflow-backend.onrender.com';
+const END_POINT = process.env.REACT_APP_API_URL;
 const GET_PROJECTS = END_POINT + '/api/projects';
 const GET_TASKS = END_POINT + '/api/tasks';
 const GET_USERS = END_POINT + '/api/users';

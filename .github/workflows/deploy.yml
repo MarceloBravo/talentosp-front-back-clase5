@@ -27,6 +27,9 @@ jobs:
         run: |
           cd frontend
           npm run build
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+          REACT_APP_DEFAULT_AVATAR: ${{ secrets.REACT_APP_DEFAULT_AVATAR }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

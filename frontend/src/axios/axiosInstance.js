@@ -1,7 +1,7 @@
 import axios from "axios";
 import { saveRefreshToken, getRefreshTokenFromCookie } from "../utils/refreshToken";
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://taskflow-backend.onrender.com';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
