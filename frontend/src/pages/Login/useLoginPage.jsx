@@ -14,6 +14,12 @@ export const useLoginPage = () => {
       navigate('/');
     }
   }, [isLoggedIn, navigate]);
+  
+  useEffect(()=>{
+    if(error){
+      alert(error);
+    }
+  },[error]);
 
   const handleInputChange = (e) => {
     if(e.target.value.trim().length === 0){
@@ -27,14 +33,9 @@ export const useLoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-        await login(formLogin)
-        if(error){
-          throw new Error(error);
-        }
-        //navigate('/');      
+        login(formLogin)
     }catch(error){
       alert(error.message);
-      console.log(error);
     }
   };
 

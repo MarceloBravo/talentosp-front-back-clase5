@@ -10,8 +10,8 @@ class LoginController{
             res.json({data});
             
         }catch(error){
-            console.log(error);
-            next(error);
+            res.json(error.cause === 401 ? error.message : 'Ha ocurrido un error al intentar iniciar sesión. Inténtalo nuevamente más tarde.');
+            //next(error);
         }
     }
 

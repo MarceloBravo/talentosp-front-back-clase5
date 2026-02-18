@@ -33,6 +33,7 @@ export const AuthProvider = ({ children }) => {
               }
 
           }else{
+            console.log('---------', response)
               dispatch({
                   type: AUTH_ACTIONS.LOGIN_ERROR,
                   payload: 'Usuario y o contraseña no válidos.'
