@@ -256,8 +256,8 @@ const useProjectForm = () => {
               }));
           }
       } catch (error) {
-          alert('Ocurrió un error al procesar las imágenes.');
-          console.error(error);
+        showToast('Ocurrió un error al procesar las imágenes.','danger')
+        console.error(error);
       }
   }
 
@@ -267,14 +267,14 @@ const useProjectForm = () => {
         }
 
         if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
-            alert('Solo se permiten imágenes PNG o JPG');
+            showToast('Solo se permiten imágenes PNG o JPG','danger');
             return false;
         }
 
         // La compresión se encargará del tamaño, esto es solo una comprobación previa.
         const maxSizeMB = 2;
         if (file.size > maxSizeMB * 1024 * 1024) {
-            alert(`La imagen es demasiado grande. El tamaño máximo es de ${maxSizeMB}MB.`);
+            showToast(`La imagen es demasiado grande. El tamaño máximo es de ${maxSizeMB}MB.`,'danger');
             return false;
         }
 

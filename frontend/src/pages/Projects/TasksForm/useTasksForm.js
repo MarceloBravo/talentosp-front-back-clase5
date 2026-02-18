@@ -289,7 +289,7 @@ const useTasksForm = () => {
               }));
           }
       } catch (error) {
-          alert('Ocurrió un error al procesar las imágenes.');
+          showToast('Ocurrió un error al procesar las imágenes.','danger');
           console.error(error);
       }
   }
@@ -321,14 +321,14 @@ const useTasksForm = () => {
         const allowedExtensions = ['png', 'jpg', 'jpeg', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'csv', 'txt', 'zip', 'rar', 'ppt', 'pptx'];
         
         if (!allowedMimeTypes.includes(file.type) && !allowedExtensions.includes(ext)) {
-            alert('Tipo de archivo no permitido. Solo se permiten: imágenes (PNG, JPG), documentos (PDF, DOC, DOCX, XLS, XLSX, CSV, TXT, PPT, PPTX) y comprimidos (ZIP, RAR)');
+            showToast('Tipo de archivo no permitido. Solo se permiten: imágenes (PNG, JPG), documentos (PDF, DOC, DOCX, XLS, XLSX, CSV, TXT, PPT, PPTX) y comprimidos (ZIP, RAR)', 'danger');
             return false;
         }
 
         // La compresión se encargará del tamaño de imágenes, esto es solo una comprobación previa.
         const maxSizeMB = 2;
         if (file.size > maxSizeMB * 1024 * 1024) {
-            alert(`El archivo es demasiado grande. El tamaño máximo es de ${maxSizeMB}MB.`);
+            showToast(`El archivo es demasiado grande. El tamaño máximo es de ${maxSizeMB}MB.`, 'danger');
             return false;
         }
 

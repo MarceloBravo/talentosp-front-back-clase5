@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router'
+import { Routes, Route, Navigate } from 'react-router'
 import { ProtectedRoutes } from './ProtectedRoutes'
 import { LoginPage } from '../pages/Login/LoginPage'
 import { Dashboard } from '../pages/Dashboard/Dashboard'
@@ -28,6 +28,7 @@ export const Navigation = () => {
             <Route path="/projects/:id/tasks" element={<ProtectedRoutes requiredRol="admin"><TasksListsPage/></ProtectedRoutes>}/>
             <Route path="/projects/:projectId/tasks/new" element={<ProtectedRoutes requiredRol="admin"><TasksFormPage/></ProtectedRoutes>}/>
             <Route path="/projects/:projectId/tasks/:id" element={<ProtectedRoutes requiredRol="admin"><TasksFormPage/></ProtectedRoutes>}/>
+            <Route path="*" element={<Navigate to="/" replace/>}/>
         </Routes>
         </div>
     )

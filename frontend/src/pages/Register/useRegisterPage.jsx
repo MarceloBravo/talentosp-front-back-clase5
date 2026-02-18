@@ -2,6 +2,7 @@ import { useHttp } from '../../hooks/useHttp';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { RegisterSchema } from './RegisterSchema';
+import useToastStore from '../../store/useToastStore';
 
 import styles from './RegisterPage.module.css';
 
@@ -17,21 +18,22 @@ export const useRegisterPage = () => {
     });
     const [ formErrors, setFormErrors ] = useState({});
     const [passwordStrength, setPasswordStrength] = useState(0);
+    const showToast = useToastStore((state) => state.showToast);
     const navigate = useNavigate();
 
     useEffect(()=>{
         if(data){
-            alert(data.mensaje);
+            showToast(data.mensaje,'danger');
             navigate('/login');
         }
-    },[data, navigate]);
+    },[data, navigate, showToast]);
 
     useEffect(()=>{
         if(error){
-            alert(error);
+            showToast(error, 'danger');
             resetError();
         }
-    },[error, resetError]);
+    },[error, resetError, showToast]);
 
     const calculatePasswordStrength = (password) => {
         let score = 0;
@@ -84,7 +86,7 @@ export const useRegisterPage = () => {
         try{
             sendRequest("/api/register", "POST", data);        
         }catch(error){
-            alert(error.message);    
+            showToast(error.message, 'danger');    
         }
     };
 

@@ -179,14 +179,14 @@ export const useUserFormPage = () => {
         }
 
         if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
-            alert('Solo se permiten imágenes PNG o JPG');
+            showToast('Solo se permiten imágenes PNG o JPG', 'danger');
             return false;
         }
 
         // La compresión se encargará del tamaño, esto es solo una comprobación previa.
         const maxSizeMB = 2;
         if (file.size > maxSizeMB * 1024 * 1024) {
-            alert(`La imagen es demasiado grande. El tamaño máximo es de ${maxSizeMB}MB.`);
+            showToast(`La imagen es demasiado grande. El tamaño máximo es de ${maxSizeMB}MB.`, 'danger');
             return false;
         }
 
@@ -233,7 +233,7 @@ export const useUserFormPage = () => {
             reader.readAsDataURL(compressedFile);
 
         } catch (error) {
-            alert('Ocurrió un error al procesar la imagen.');
+            showToast('Ocurrió un error al procesar la imagen.', 'danger');
             console.error(error);
         }
     }
