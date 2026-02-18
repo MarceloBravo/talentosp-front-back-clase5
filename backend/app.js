@@ -5,12 +5,20 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  process.env.FRONTEND_URL2,
+  process.env.FRONTEND_URL3
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || '*', // Permitir este origen o cualquiera si no está configurado
-  credentials: process.env.FRONTEND_URL ? true : false, // Permitir cookies solo si hay FRONTEND_URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
-  allowedHeaders: ['Content-Type', 'Authorization'] // Headers permitidos
+  origin: allowedOrigins,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+console.log(`CORS configurado para permitir acceso desde las siguientes URLs: ${allowedOrigins.join(', ')}`);
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));

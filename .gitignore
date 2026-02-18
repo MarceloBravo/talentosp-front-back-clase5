@@ -48,3 +48,5 @@ frontend/Thumbs.db
 
 backend/node_modules
 /backend/uploads
+backend/.env
+frontend/.env
