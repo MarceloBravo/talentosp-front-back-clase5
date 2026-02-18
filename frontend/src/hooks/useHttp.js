@@ -15,14 +15,22 @@ export const useHttp = () => {
                 data, 
                 ...config
             })
+            if(result.data.code === 400){
+                setError(result.data.error)
+                return result.data
+            }
             setData(result.data)
             return result.data
         }catch(err){
-            setError(err.message)
+            setError(err.response?.data?.error || (err.response?.data?.message || err.message))
         }finally{
             setIsLoading(false)
         }
     }
 
-    return { isLoading, error, data, sendRequest }
+    const resetError = () => {
+        setError(null)
+    }
+
+    return { isLoading, error, data, sendRequest, resetError }
 }

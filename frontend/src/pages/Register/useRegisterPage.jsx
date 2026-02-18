@@ -1,12 +1,12 @@
 import { useHttp } from '../../hooks/useHttp';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { RegisterSchema } from './RegisterSchema';
 
 import styles from './RegisterPage.module.css';
 
 export const useRegisterPage = () => {
-    const { loading, sendRequest } = useHttp();
+    const { loading, sendRequest, error, data, resetError } = useHttp();
     const [formData, setFormData] = useState({
         nombre: '',
         email: '',
@@ -19,6 +19,19 @@ export const useRegisterPage = () => {
     const [passwordStrength, setPasswordStrength] = useState(0);
     const navigate = useNavigate();
 
+    useEffect(()=>{
+        if(data){
+            alert(data.mensaje);
+            navigate('/login');
+        }
+    },[data, navigate]);
+
+    useEffect(()=>{
+        if(error){
+            alert(error);
+            resetError();
+        }
+    },[error, resetError]);
 
     const calculatePasswordStrength = (password) => {
         let score = 0;
@@ -64,16 +77,12 @@ export const useRegisterPage = () => {
                 email: '',
                 password: '',
                 confirmPassword: '',
-                role: 'admin'
+                role: 'admin',
+                activo: true
             });
 
         try{
-            const response = await sendRequest("/api/register", "POST", data);        
-            
-            alert(response.mensaje);
-            setTimeout(() => {
-                navigate('/login');
-            }, 5000);
+            sendRequest("/api/register", "POST", data);        
         }catch(error){
             alert(error.message);    
         }

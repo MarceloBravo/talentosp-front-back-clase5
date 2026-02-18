@@ -36,7 +36,9 @@ class UserController{
                 res.json({code: 404,error: 'No se pudo crear el usuario.'});
             }
         }catch(error){
-            console.log(error);
+            if(error.code === '23505'){
+                return res.json({code: 400, error: 'El email ya está en uso.'});
+            }
             next(error);
         }
     }

@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
-import instance, { injectStore } from '../../axios/axiosInstance';
-import { getRefreshTokenFromCookie, saveRefreshToken, deleteRefreshToken } from '../../utils/refreshToken';
+import axiosInstance, { injectStore } from '../../axios/axiosInstance';
+import { getRefreshTokenFromCookie, saveRefreshToken } from '../../utils/refreshToken';
 import { jwtDecode } from 'jwt-decode';
 import AuthContext from './AuthContext';
 import { AuthReducer, initialState, AUTH_ACTIONS } from './AuthReducer';
@@ -13,13 +13,13 @@ export const AuthProvider = ({ children }) => {
       dispatch({ type: AUTH_ACTIONS.LOGIN_START });
       
       try{
-          const response = await instance.post('/api/login', credentials);
+          const response = await axiosInstance.post('/api/login', credentials);
           if(response?.data?.data?.access_token){
               const payload = jwtDecode(response.data.data.access_token);
+
               dispatch({
                   type: AUTH_ACTIONS.LOGIN_SUCCESS,
                   payload: {
-                      remember: credentials.rememberMe,
                       user: payload.user,
                       accessToken: response.data.data.access_token,
                   }
@@ -27,13 +27,9 @@ export const AuthProvider = ({ children }) => {
 
               if(credentials.rememberMe){
                 saveRefreshToken(response.data.data.refresh_token); // Guarda el refresh-token en cookie
-              } else {
-                // Si no marca "Recordarme", elimina cualquier refresh token anterior
-                deleteRefreshToken();
               }
 
           }else{
-            console.log('---------', response)
               dispatch({
                   type: AUTH_ACTIONS.LOGIN_ERROR,
                   payload: 'Usuario y o contraseña no válidos.'
@@ -50,37 +46,24 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
       dispatch({ type: AUTH_ACTIONS.LOGOUT });
       const refreshToken = getRefreshTokenFromCookie();
-      
-      // Eliminar el refresh token de la cookie
-      deleteRefreshToken();
-      
       if(!refreshToken){
-          console.log("No hay refresh token para notificar al servidor en logout");
           return;
       }
-      
-      try {
-          await instance.post('/api/logout', {refreshToken});
-      } catch (err) {
-          console.error("Error al notificar logout al servidor:", err.message);
-          // No es crítico si falla, ya se eliminó la cookie localmente
-      }
+      await axiosInstance.post('/api/logout', {refreshToken});
   };
 
   // Función para actualizar userSession (necesaria para el interceptor de Axios)
   const setUserSession = (newSession) => {
-    if (newSession && newSession.isLoggedIn !== false && newSession.accessToken) {
+    if (newSession.isLoggedIn) {
       dispatch({
         type: AUTH_ACTIONS.REFRESH_TOKEN_SUCCESS,
         payload: {
-          remember: true,
           user: newSession.user,
           accessToken: newSession.accessToken,
         }
       });
     } else {
       dispatch({ type: AUTH_ACTIONS.LOGOUT });
-      deleteRefreshToken();
     }
   };
 
@@ -94,37 +77,23 @@ export const AuthProvider = ({ children }) => {
   }, [userSession]);
 
   useEffect(() => {
-    // Auto-login si hay refresh_token en cookie
+    // Auto-login si hay refresh_token
     const refreshToken = getRefreshTokenFromCookie();
-    
     if (refreshToken && !userSession.isLoggedIn) {
-      console.log("Se encontró refresh token en cookie. Intentando auto-login...");
       dispatch({ type: AUTH_ACTIONS.SET_LOADING, payload: true });
-      
-      instance.post('/api/refreshToken', { refreshToken })
+      axiosInstance.post('/api/refreshToken', { refreshToken })
         .then(response => {
-          if (response?.data?.data?.access_token) {
-            const payload = jwtDecode(response.data.data.access_token);
-            dispatch({
-              type: AUTH_ACTIONS.REFRESH_TOKEN_SUCCESS,
-              payload: {
-                user: payload.user,
-                accessToken: response.data.data.access_token,
-              }
-            });
-            // Actualizar el refresh token en cookie
-            if (response?.data?.data?.refresh_token) {
-              saveRefreshToken(response.data.data.refresh_token);
+          const payload = jwtDecode(response.data.data.access_token);
+          dispatch({
+            type: AUTH_ACTIONS.REFRESH_TOKEN_SUCCESS,
+            payload: {
+              user: payload.user,
+              accessToken: response.data.data.access_token,
             }
-            console.log("Auto-login exitoso");
-          } else {
-            console.error("Respuesta de auto-login inválida");
-            deleteRefreshToken();
-          }
+          });
+          saveRefreshToken(response.data.data.refresh_token);
         })
-        .catch((err) => {
-          console.log("Auto-login fallido. Eliminando refresh token y redirigiendo a login.");
-          deleteRefreshToken();
+        .catch(() => {
           // Si falla, no hacer nada, el usuario irá a login
         })
         .finally(() => {
