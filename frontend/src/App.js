@@ -11,7 +11,7 @@ import { HeaderComponent } from './components/Header/HeaderComponent';
 function App() {
   return (    
     <AppProviders>
-      <BrowserRouter basename={process.env.REACT_APP_BASE_NAME || ''}>
+      <BrowserRouter>
         <Modal/>    
         <Toast/>
         <div className="appContainer">
