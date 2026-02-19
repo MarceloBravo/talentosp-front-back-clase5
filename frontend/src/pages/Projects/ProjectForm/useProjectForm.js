@@ -15,7 +15,7 @@ const useProjectForm = () => {
     const response = useModalStore((state) => state.response);  //Recibe la respuesta seleccionada por el usuario en el cuadro de dialogo Modal
     const showToast = useToastStore((state) => state.showToast);
     const { isLoading: isLoadingUsers, error: errorUsers, data: dataUsers, sendRequest: httpUsers } = useHttp();
-    const { isLoading: isLoadingProjects, error: errorProjects, sendRequest: httpProject } = useHttp();
+    const { data, isLoading: isLoadingProjects, error: errorProjects, sendRequest: httpProject } = useHttp();
     const [ formData, setFormData ] = useState({
       name: '',
       description: '',
@@ -47,22 +47,25 @@ const useProjectForm = () => {
 
     useEffect(()=> {
       if(id && id !== 'new'){
-        const loadProject = async () => {
-          const resp = await httpProject(END_POINT_PROJECTS + '/' + id, 'GET', null, true);
-          setFormData({
-            name: resp.data.name,
-            description: resp.data.description,  
-            owner_id: resp.data.owner_id,
-            created_at: resp.data.created_at,
-            attachments: resp.data.attachments || [],
-            files_url: [],
-            files: []
-          });
-        }
-        loadProject();
+        httpProject(END_POINT_PROJECTS + '/' + id, 'GET', null, true);
       }
       // eslint-disable-next-line
     },[id]);
+
+    useEffect(()=>{
+      if(id && id !== 'new' && data && data.data){
+        setFormData({
+          name: data.data.name || '',
+          description: data.data.description || '',  
+          owner_id: data.data.owner_id || '',
+          created_at: data.data.created_at || '',
+          attachments: data.data.attachments || [],
+          files_url: [],
+          files: []
+        });
+      }
+      // eslint-disable-next-line
+    },[data])
 
     useEffect(()=> {
         if(response){
