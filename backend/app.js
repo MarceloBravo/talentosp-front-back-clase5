@@ -18,6 +18,13 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
+app.use((req, res, next) => {
+  console.log(`Petición desde: ${req.headers.origin}`);
+  console.log(`Método: ${req.method}`);
+  console.log(`URL: ${req.url}`);
+  next();
+});
+
 console.log(`CORS configurado para permitir acceso desde las siguientes URLs: ${allowedOrigins.join(', ')}`);
 
 app.use(express.json({ limit: '50mb' }));
