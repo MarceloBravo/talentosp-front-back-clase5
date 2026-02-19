@@ -3,7 +3,7 @@
   publish = "frontend/build"
 
 [build.environment]
-  REACT_APP_API_URL = "https://taskflow-backend.onrender.com"
+  REACT_APP_API_URL = "https://talentosp-front-back-clase5.onrender.com"
   REACT_APP_DEFAULT_AVATAR = "https://www.w3schools.com/howto/img_avatar.png"
 
 [[redirects]]
