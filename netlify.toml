@@ -1,0 +1,12 @@
+[build]
+  command = "cd frontend && npm run build"
+  publish = "frontend/build"
+
+[build.environment]
+  REACT_APP_API_URL = "https://taskflow-backend.onrender.com"
+  REACT_APP_DEFAULT_AVATAR = "https://www.w3schools.com/howto/img_avatar.png"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
