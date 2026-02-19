@@ -2,7 +2,6 @@
   "name": "frontend",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://MarceloBravo.github.io/talentosp-front-back-clase5",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
