@@ -5,6 +5,7 @@
 [build.environment]
   REACT_APP_API_URL = "https://taskflow-backend.onrender.com"
   REACT_APP_DEFAULT_AVATAR = "https://www.w3schools.com/howto/img_avatar.png"
+  REACT_APP_BASE_NAME = "/talentosp-front-back-clase5"
 
 [[redirects]]
   from = "/talentosp-front-back-clase5/"
