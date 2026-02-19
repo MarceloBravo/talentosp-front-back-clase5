@@ -11,7 +11,7 @@ import { HeaderComponent } from './components/Header/HeaderComponent';
 function App() {
   return (    
     <AppProviders>
-      <BrowserRouter>
+      <BrowserRouter basename="/talentosp-front-back-clase5">
         <Modal/>    
         <Toast/>
         <div className="appContainer">
