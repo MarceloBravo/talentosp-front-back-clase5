@@ -67,7 +67,6 @@ export const useUserFormPage = () => {
             http(END_POINT + '/' + id, 'GET', null, true)
             .then(async res => {
                 const imagen = await cargarImagen(res.data.file_url);
-                debugger
                 setFormData({
                     nombre: res.data.nombre,
                     email: res.data.email,
