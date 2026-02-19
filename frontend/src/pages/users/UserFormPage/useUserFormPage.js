@@ -242,7 +242,7 @@ export const useUserFormPage = () => {
     const handleBtnSaveClick = async () => {
         const newErrors = {};
         let hasError = false;
-
+        
         for (const key of Object.keys(formData)) {
             if (errMessages[key]) {
                 const message = errMessages[key](formData[key]);
@@ -256,6 +256,7 @@ export const useUserFormPage = () => {
         setFormDataErros(newErrors);
 
         if (hasError) {
+            showToast("Datos incompletos o no válidos", 'danger');
             return;
         }
 

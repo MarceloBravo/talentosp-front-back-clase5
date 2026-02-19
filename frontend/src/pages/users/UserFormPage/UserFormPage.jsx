@@ -40,6 +40,7 @@ export const UserFormPage = () => {
                     >Cargar avatar
                     </button>
                     {formDataErros.file_url && <div className="text-danger">{formDataErros.file_url}</div>}
+                    {formDataErros.file && <div className="text-danger">{formDataErros.file}</div>}
 
                 </div>
                 <div className="rigthDiv col-md-9">
