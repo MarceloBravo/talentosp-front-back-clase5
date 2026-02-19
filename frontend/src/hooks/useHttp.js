@@ -9,6 +9,7 @@ export const useHttp = () => {
     const sendRequest = async (url, method, data, config) => {
         try{
             setIsLoading(true)
+            debugger
             const result = await instance({
                 url,
                 method,
