@@ -14,7 +14,7 @@ class ProjectService{
         const result = await this.model.getById(id);
         // Validar que result exista y tenga la propiedad rows
         if(!result || result.length === 0){
-             throw new Error('El proyecto no existe', { cause: 404 }, result);
+             throw new Error('El proyecto no existe', { cause: 404 });
         }
         
         const attachments = this.attachmentsService ? await this.attachmentsService.getByOwnerId(id) : [];

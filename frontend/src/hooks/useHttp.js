@@ -15,7 +15,6 @@ export const useHttp = () => {
                 data, 
                 ...config
             })
-            console.log('result', result);
             if(result.data.code === 400){
                 setError(result.data.error)
                 return result.data

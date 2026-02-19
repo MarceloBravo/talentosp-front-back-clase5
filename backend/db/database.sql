@@ -53,7 +53,7 @@ CREATE TABLE attachments (
 -- 5. Tabla de Adjuntos para proyectos (Gestión de Archivos)
 CREATE TABLE attachments_project (
     id SERIAL PRIMARY KEY,
-    project_id INTEGER REFERENCES tasks(id) ON DELETE CASCADE,
+    owner_id INTEGER REFERENCES projects(id) ON DELETE CASCADE,
     file_name VARCHAR(255) NOT NULL,
     file_url VARCHAR(255) NOT NULL,
     uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
