@@ -7,6 +7,17 @@
   REACT_APP_DEFAULT_AVATAR = "https://www.w3schools.com/howto/img_avatar.png"
 
 [[redirects]]
+  from = "/talentosp-front-back-clase5/api/*"
+  to = "/talentosp-front-back-clase5/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/talentosp-front-back-clase5/*"
+  to = "/talentosp-front-back-clase5/index.html"
+  status = 200
+  force = false
+
+[[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/talentosp-front-back-clase5/index.html"
   status = 200
