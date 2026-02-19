@@ -12,14 +12,13 @@ class ProjectService{
 
     async getById(id){
         const result = await this.model.getById(id);
-        
         // Validar que result exista y tenga la propiedad rows
-        if(!result || !result.rows || result.rows.length === 0){
-             throw new Error('El proyecto no existe', { cause: 404 });
+        if(!result || result.length === 0){
+             throw new Error('El proyecto no existe', { cause: 404 }, result);
         }
         
         const attachments = this.attachmentsService ? await this.attachmentsService.getByOwnerId(id) : [];
-        return {...result.rows[0], attachments};
+        return {...result[0], attachments};
     }
 
 
