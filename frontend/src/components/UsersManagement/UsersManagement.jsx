@@ -1,11 +1,7 @@
-import { useUsersManagement } from './useUsersManagement';
 import styles from './UsersManagement.module.css';
+import CardManager from '../CardManager/CardManager';
 
 export const UsersManagement = ({ users = [] }) => {
-    const {
-        UserCard
-    } = useUsersManagement();
-
 
     return (
         <div className={styles.container}>
@@ -14,7 +10,7 @@ export const UsersManagement = ({ users = [] }) => {
                 {users.length > 0 ? (
                     <div className={styles.usersGrid}>
                         {users.map((user) => (
-                            <UserCard key={user.id} user={user} />
+                            <CardManager key={user.id} user={user} />
                         ))}
                     </div>
                 ) : (
