@@ -7,7 +7,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    background: #549bb8;
+    background: #27569b;
     padding: 10px 20px;
     z-index: 100;
     box-sizing: border-box;
@@ -45,14 +45,14 @@
 }
 
 .logoutButton {
-    /*background: #549bb8;*/
+    /*background: #27569b;*/
     cursor: pointer;
 }
 
 
 .logoutButton:hover,
 .loginButton:hover{
-    background: #3885a4;
+    background: #3c6cb4;
     color: white;
     border: solid white thin
 }

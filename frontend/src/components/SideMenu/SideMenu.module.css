@@ -3,7 +3,7 @@
     flex-direction: column;
     width: 200px;
     min-height: fit-content;
-    background-color: #549bb8;;
+    background-color: #27569b;
     padding: 20px 12px 20px 0px;
     border-right: 1px solid #dee2e6;
     flex-shrink: 0;
@@ -45,7 +45,7 @@
 }
 
 .link.active {
-    background-color: #3885a4;
+    background-color: #3c6cb4;
     color: white;
     font-weight: 600;
 }

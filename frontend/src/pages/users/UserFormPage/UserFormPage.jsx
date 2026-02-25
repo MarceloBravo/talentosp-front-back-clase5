@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useUserFormPage } from './useUserFormPage';
+import { PageTitle } from '../../../components/PageTitle/PageTitle';
 
 import styles from './UserFormPage.module.css'
-import { PageTitle } from '../../../components/PageTitle/PageTitle';
 
 const DEF_AVATAR = process.env.REACT_APP_DEFAULT_AVATAR;
 
